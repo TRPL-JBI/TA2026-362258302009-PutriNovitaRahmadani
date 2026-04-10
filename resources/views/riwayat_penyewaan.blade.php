@@ -21,6 +21,22 @@
 <div class="tab-content active" id="selesai">
 
     @forelse ($penyewaanSelesai as $item)
+    @php
+    $admins = optional($item->cabang)->adminCabang ?? collect();
+@endphp
+    <!-- HEADER CABANG (DI ATAS CARD) -->
+            <div class="header-cabang">
+                <span class="cabang-nama">
+                    {{ $item->cabang->nama_cabang ?? '-' }}
+                </span>
+
+                <span class="admin-cabang">
+                    Admin:
+                    @foreach ($admins as $admin)
+                        {{ $admin->user->nama ?? '-' }}@if (!$loop->last), @endif
+                    @endforeach
+                </span>
+            </div>
     <div class="card-riwayat selesai">
         <div class="card-left">
             <p><strong>Nama</strong> : {{ auth()->user()->nama }}</p>

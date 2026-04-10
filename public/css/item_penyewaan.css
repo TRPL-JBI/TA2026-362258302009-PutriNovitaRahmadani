@@ -16,12 +16,13 @@
 
 .tab {
     flex: 1;
-    padding: 11px 0;
+    padding: 12px 0;
     border-radius: 12px;
     border: 2px solid #c77800;
     background: #ffffff;
     font-weight: 600;
     cursor: pointer;
+    transition: 0.2s;
 }
 
 .tab.active {
@@ -33,104 +34,147 @@
 .card-riwayat {
     position: relative;
     display: flex;
-    border: 1.8px solid #bfbfbf;
-    border-radius: 18px;
-    padding: 22px 26px;
-    margin-bottom: 22px;
-    background-color: #ffffff;
+
+    border-radius: 20px;
+    padding: 28px 30px;
+    margin-bottom: 28px;
+    
+
+    background: #ffffff;
+
+    border: 1px solid #f0f0f0;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+
+    transition: all 0.25s ease;
+    overflow: hidden;
+    gap: 0
 }
 
-/* kiri & kanan TIDAK 50% */
+.card-riwayat::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 5px;
+    height: 100%;
+    background: #c77800;
+    border-radius: 20px 0 0 20px;
+}
+
+.card-riwayat:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 30px rgba(0,0,0,0.08);
+}
+
+/* kiri & kanan */
 .card-left {
-    width: 45%;
+    flex: 1;
     font-size: 14px;
+    line-height: 1.9;
 }
 
 .card-right {
-    width: 55%;
-    padding-left: 25px;
+    flex: 1;
+    padding-left: 30px;
     font-size: 14px;
+    line-height: 1.9;
 }
 
 /* ================== TEXT ================== */
 .card-left p,
 .card-right p {
-    margin: 6px 0;
-    color: #222;
+    margin: 4px 0;
+    color: #333;
 }
 
 /* ================== DIVIDER ================== */
 .divider {
-    width: 1.5px;
-    background-color: #a8a8a8;
-    margin: 0 18px;
-    border-radius: 1px;
+    width: 2px;
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        #d1d5db,
+        transparent
+    );
+    margin: 0 24px;
 }
 
-/* ================== TIMER (POJOK KANAN) ================== */
+/* ================== TIMER ================== */
 .timer {
     position: absolute;
     top: 18px;
     right: 22px;
-    text-align: right;
-    font-size: 12px;
+
     color: #2e7d32;
+
+    padding: 6px 12px;
+    border-radius: 20px;
+
+    font-size: 11px;
+    font-weight: 500;
 }
 
 .timer strong {
-    font-size: 17px;
+    font-size: 14px;
     font-weight: 700;
 }
 
 /* ================== TOTAL ================== */
 .total {
     font-weight: 700;
+    font-size: 16px;
     color: #2e7d32;
-    margin-top: 4px;
+    margin-top: 10px;
 }
 
 /* ================== ACTION ================== */
 .action {
     position: absolute;
-    bottom: 18px;
+    bottom: 20px;
     right: 22px;
+
     display: flex;
     gap: 10px;
+    flex-wrap: wrap;
 }
 
 /* ================== BUTTON ================== */
 .btn {
-    padding: 7px 14px;
-    border-radius: 10px;
+    padding: 8px 16px;
+    border-radius: 999px;
     font-size: 12px;
     font-weight: 600;
     border: none;
     cursor: pointer;
     text-decoration: none;
     white-space: nowrap;
+
+    transition: all 0.2s ease;
 }
 
-/* Upload & Waiting */
-.btn.upload,
+/* Upload */
+.btn.upload {
+    background: #f3a21b;
+    color: #fff;
+}
+
+/* Waiting */
 .btn.waiting {
-    background-color: #f3a21b;
-    color: #ffffff;
-}
-
-.btn.upload:hover,
-.btn.waiting:hover {
-    background-color: #e09515;
+    background: #ffe0b2;
+    color: #a95c00;
 }
 
 /* Detail */
 .btn.detail {
-    background-color: #a95c00;
-    color: #ffffff;
+    background: #a95c00;
+    color: #fff;
 }
 
-.btn.detail:hover {
-    background-color: #8f4e00;
+.btn:hover {
+    transform: translateY(-1px);
+    opacity: 0.9;
 }
+
 /* ================= TAB CONTENT ================= */
 .tab-content {
     display: none;
@@ -138,6 +182,62 @@
 
 .tab-content.active {
     display: block;
+}
+
+/* ================== INFO ================== */
+.info-riwayat {
+    width: 100%;
+    background: #fff1dc;
+    border: 1.5px solid #f1b37a;
+    color: #000;
+    text-align: center;
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+/* ================== BADGE ================== */
+.status-wrapper {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+}
+
+.badge-selesai {
+    background: #eaf7f0;
+    color: #1f7a4f;
+    border: 1.5px solid #1f7a4f;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.badge-disewa {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+
+    background: #fff3cd;
+    color: #8a6d1d;
+
+    padding: 5px 12px;
+    border-radius: 20px;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+/* ================== DISABLE ================== */
+.no-click {
+    cursor: not-allowed;
+}
+
+.no-click a {
+    pointer-events: none;
 }
 
 /* ================== RESPONSIVE ================== */
@@ -169,59 +269,36 @@
         justify-content: flex-start;
     }
 }
+/* ================= HEADER CABANG ================= */
+/* ================= HEADER CABANG ================= */
+.header-cabang {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-.info-riwayat {
-    width: 100%;
-    background: #fff1dc;
-    border: 1.5px solid #f1b37a;
-    color: #000;
-    text-align: center;
-    padding: 12px 18px;
-    border-radius: 10px;
-    font-size: 14px;
-    margin-bottom: 25px;
+    margin-bottom: -12px;
+    padding: 10px 14px;
+
+    font-size: 13px;
+
+    background: #fcefe3; /* soft orange modern */
+    border: 1px solid #fffcf8;
+    border-bottom: none;
+
+    border-radius: 14px 14px 0 0;
+
+    position: relative;
+    z-index: 3;
 }
 
-/* wrapper pojok kanan atas */
-.status-wrapper {
-    position: absolute;
-    top: 14px;
-    right: 18px;
+/* nama cabang */
+.cabang-nama {
+    font-weight: 700;
+    color: #9a3412; /* coklat tua, nyambung garis kiri */
 }
 
-/* badge hijau */
-.badge-selesai {
-    background: #eaf7f0;
-    color: #1f7a4f;
-    border: 1.5px solid #1f7a4f;
-    padding: 3px 10px;
-    border-radius: 12px;
-    font-size: 11px;
-    font-weight: 600;
-}
-
-/* badge disewa (kuning cream) */
-.badge-disewa {
-    position: absolute;
-    top: 12px;
-    right: 14px;
-
-    background: #fff3cd;      /* kuning cream */
-    color: #8a6d1d;
-    border: 1.5px solid #e6c76a;
-
-    padding: 3px 10px;
-    border-radius: 12px;
-    font-size: 11px;
-    font-weight: 600;
-
-    white-space: nowrap;      /* ⬅️ INI YANG HENTIKAN MEMANJANG */
-}
-
-.no-click {
-    cursor: not-allowed;
-}
-
-.no-click a {
-    pointer-events: none;
+/* admin */
+.admin-cabang {
+    font-size: 12px;
+    color: #7c2d12;
 }

@@ -49,7 +49,7 @@
 
         <div class="action-button">
             <button type="submit" class="btn-konfirmasi">Konfirmasi</button>
-            <a href="{{ route('penyewaan.riwayat') }}" class="btn-batal">Batal</a>
+            <a href="{{ route('item_penyewaan') }}" class="btn-batal">Batal</a>
         </div>
     </div>
 </form>

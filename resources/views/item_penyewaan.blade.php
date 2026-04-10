@@ -25,22 +25,25 @@
         @forelse ($belumBayar as $item)
             @php
                 $sisaDetik = now()->diffInSeconds($item->batas_pembayaran, false);
+                $admins = $item->cabang->adminCabang ?? collect();
             @endphp
+
+            <!-- HEADER CABANG (DI ATAS CARD) -->
+            <div class="header-cabang">
+                <span class="cabang-nama">
+                    {{ $item->cabang->nama_cabang ?? '-' }}
+                </span>
+
+                <span class="admin-cabang">
+                    Admin:
+                    @foreach ($admins as $admin)
+                        {{ $admin->user->nama ?? '-' }}@if (!$loop->last), @endif
+                    @endforeach
+                </span>
+            </div>
 
             <div class="card-riwayat">
                 <div class="card-left">
-                    <p>
-                <strong>Cabang</strong> : {{ $item->cabang->nama_cabang ?? '-' }}
-
-<p>
-    <strong>Admin Cabang</strong> :
-    @php
-        $admins = $item->cabang->adminCabang ?? collect();
-    @endphp
-    @foreach ($admins as $admin)
-        {{ $admin->user->nama ?? '-' }}@if (!$loop->last), @endif
-    @endforeach
-</p>
                     <p><strong>Nama</strong> : {{ auth()->user()->nama }}</p>
                     <p><strong>No. Telephone</strong> : {{ auth()->user()->no_telepon ?? '-' }}</p>
                     <p>
@@ -67,21 +70,21 @@
 
                     <div class="action">
                         @if ($item->metode_bayar === 'transfer')
-    @if ($item->bukti_bayar)
-        <span class="btn waiting no-click">
-            Menunggu Konfirmasi Admin
-        </span>
-    @else
-        <a href="{{ route('penyewaan.upload_pembayaran', $item->idpenyewaan) }}"
-           class="btn upload">
-            Upload Bukti Transfer
-        </a>
-    @endif
-@else
-    <span class="btn waiting no-click">
-        Menunggu Pembayaran di toko
-    </span>
-@endif
+                            @if ($item->bukti_bayar)
+                                <span class="btn waiting no-click">
+                                    Menunggu Konfirmasi Admin
+                                </span>
+                            @else
+                                <a href="{{ route('penyewaan.upload_pembayaran', $item->idpenyewaan) }}"
+                                   class="btn upload">
+                                    Upload Bukti Transfer
+                                </a>
+                            @endif
+                        @else
+                            <span class="btn waiting no-click">
+                                Menunggu Pembayaran di toko
+                            </span>
+                        @endif
 
                         <a href="{{ route('detail_sewa', $item->idpenyewaan) }}"
                            class="btn detail">
@@ -90,6 +93,7 @@
                     </div>
                 </div>
             </div>
+
         @empty
             <p class="empty">Tidak ada penyewaan yang belum dibayar</p>
         @endforelse
@@ -100,20 +104,26 @@
     <div class="tab-content" id="penyewaan">
 
         @forelse ($penyewaanAktif as $item)
+            @php
+                $admins = $item->cabang->adminCabang ?? collect();
+            @endphp
+
+            <!-- HEADER CABANG -->
+            <div class="header-cabang">
+                <span class="cabang-nama">
+                    {{ $item->cabang->nama_cabang ?? '-' }}
+                </span>
+
+                <span class="admin-cabang">
+                    Admin:
+                    @foreach ($admins as $admin)
+                        {{ $admin->user->nama ?? '-' }}@if (!$loop->last), @endif
+                    @endforeach
+                </span>
+            </div>
+
             <div class="card-riwayat aktif">
                 <div class="card-left">
-                    <p>
-                <strong>Cabang</strong> : {{ $item->cabang->nama_cabang ?? '-' }}
-
-<p>
-    <strong>Admin Cabang</strong> :
-    @php
-        $admins = $item->cabang->adminCabang ?? collect();
-    @endphp
-    @foreach ($admins as $admin)
-        {{ $admin->user->nama ?? '-' }}@if (!$loop->last), @endif
-    @endforeach
-</p>
                     <p><strong>Nama</strong> : {{ auth()->user()->nama }}</p>
                     <p><strong>No. Telephone</strong> : {{ auth()->user()->no_telepon ?? '-' }}</p>
                     <p>
@@ -143,6 +153,7 @@
                     </div>
                 </div>
             </div>
+
         @empty
             <p class="empty">Tidak ada penyewaan aktif</p>
         @endforelse

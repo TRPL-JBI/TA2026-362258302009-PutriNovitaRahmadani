@@ -207,6 +207,7 @@ public function selesai() {
     $penyewaanSelesai = Penyewaan::with(['penyewa.user'])
         ->where('penyewa_idpenyewa', $penyewa->idpenyewa) // ✅ FIX DI SINI
         ->where('status_penyewaan', 'selesai')
+        
         ->orderBy('created_at', 'desc')
         ->get();
 
@@ -243,7 +244,7 @@ public function uploadBuktiBayar(Request $request, $idpenyewaan)
         $penyewaan->save(); // status tetap menunggu konfirmasi
     }
 
-    return redirect()->route('penyewaan.riwayat')
+    return redirect()->route('item_penyewaan')
                      ->with('success', 'Bukti bayar berhasil diupload, tunggu konfirmasi admin.');
 }
 
