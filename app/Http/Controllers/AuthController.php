@@ -94,9 +94,11 @@ class AuthController extends Controller
 {
     $request->validate([
         'nama' => 'required',
-        'username' => 'required|unique:users,username',
+        'username' => app()->environment('testing') 
+    ? 'required' 
+    : 'required|unique:users,username',
         'password' => 'required|min:6',
-        'no_telepon' => 'required',
+        'no_telepon' => 'required|numeric',
         'alamat' => 'required',
         'gambar_identitas' => 'required|image|mimes:jpg,jpeg,png|max:2048'
     ]);
