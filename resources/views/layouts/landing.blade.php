@@ -23,23 +23,36 @@
         <span class="brand">OutdoorKriss</span>
     </div>
 
-    <!-- KANAN -->
     <div class="nav-right">
-        <ul>
-            <li><a href="/" class="{{ request()->path() == '/' ? 'active' : '' }}">Home</a></li>
+    <ul>
+
+        {{-- HALAMAN LANDING PENYEWA --}}
+        @if (Route::currentRouteName() == 'landing_penyewa')
+
+            <li><a href="/" class="{{ request()->is('/') ? 'active' : '' }}">Home</a></li>
             <li><a href="#profil">Profil</a></li>
             <li><a href="#syarat">Syarat</a></li>
             <li><a href="#cabang">Cabang</a></li>
-            <li>
-                <a href="/landing_page_cabang"
+            <li><a href="/landing_page_cabang"
                    class="{{ request()->is('landing_page_cabang') ? 'active' : '' }}">
                    Franchise
                 </a>
             </li>
-        </ul>
 
-        <a href="/login" class="btn-login">Login</a>
-    </div>
+        {{-- HALAMAN LANDING CABANG (FRANCHISE) --}}
+        @elseif (Route::currentRouteName() == 'landing_page_cabang')
+
+            <li><a href="/" class="{{ request()->is('/') ? 'active' : '' }}">Home</a></li>
+            <li><a href="#gambaran">Gambaran</a></li>
+            <li><a href="#keuntungan">Keuntungan</a></li>
+            <li><a href="#section">Alur</a></li>
+
+        @endif
+
+    </ul>
+
+    <a href="/login" class="btn-login">Login</a>
+</div>
 
 </nav>
 

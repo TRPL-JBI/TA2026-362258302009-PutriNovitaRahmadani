@@ -24,7 +24,7 @@
 </section>
 
 <!-- ================= GAMBARAN ================= -->
-<section class="gambaran">
+<section class="gambaran" id="gambaran">
     <div class="gambaran-container">
 
         <h2>GAMBARAN KERJA SAMA</h2>
@@ -40,7 +40,7 @@
     </div>
 </section>
 <!-- ================= KEUNTUNGAN ================= -->
-<section class="keuntungan">
+<section class="keuntungan" id="keuntungan">
     <div class="keuntungan-container">
 
         <h2>KEUNTUNGAN MENJADI CABANG</h2>
@@ -82,7 +82,7 @@
     </div>
 </section>
 <!-- ================= ALUR ================= -->
-<section class="section">
+<section class="section" id="section">
     <h2>ALUR KERJA SAMA FRANCHISE</h2>
 
     <div class="title-line">
