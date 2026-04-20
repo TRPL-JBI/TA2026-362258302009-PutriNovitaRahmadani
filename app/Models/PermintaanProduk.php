@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class PermintaanProduk extends Model
 {
+    use HasFactory;
     protected $table = 'permintaan_produk';
     protected $primaryKey = 'id'; // sesuai migration terbaru
     protected $guarded = []; // supaya mass assign bisa

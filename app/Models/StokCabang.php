@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class StokCabang extends Model
 {
+    use HasFactory;
     protected $table = 'stok_cabang';
 
     protected $primaryKey = 'idstok';   // 🔥 INI YANG HILANG
