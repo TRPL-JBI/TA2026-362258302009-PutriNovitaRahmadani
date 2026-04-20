@@ -211,6 +211,8 @@ function hitungDurasi(tglSewa, tglSelesai){
 
 
 /* ================= CART AJAX ================= */
+/* ================= CART AJAX ================= */
+
 function addToCart(idstok){
     openKeranjang();
 
@@ -224,13 +226,17 @@ function addToCart(idstok){
         body:JSON.stringify({idstok})
     })
     .then(r=>r.json())
-    .then(cart=>{
-        cartCache = cart;
+    .then(res=>{
+        if(res.error){
+            alert(res.error);
+        }
+
+        cartCache = res.cart;
         renderCart(cartCache);
     });
 }
 
-function updateCart(idstok,qty){
+function updateCart(idstok, qty){
     if(qty < 1) return deleteCart(idstok);
 
     fetch('/cart/update',{
@@ -243,8 +249,12 @@ function updateCart(idstok,qty){
         body:JSON.stringify({idstok,qty})
     })
     .then(r=>r.json())
-    .then(cart=>{
-        cartCache = cart;
+    .then(res=>{
+        if(res.error){
+            alert(res.error);
+        }
+
+        cartCache = res.cart;
         renderCart(cartCache);
     });
 }
@@ -260,11 +270,12 @@ function deleteCart(idstok){
         body:JSON.stringify({idstok})
     })
     .then(r=>r.json())
-    .then(cart=>{
-        cartCache = cart;
+    .then(res=>{
+        cartCache = res.cart;
         renderCart(cartCache);
     });
 }
+
 function addPaketToCart(paketId){
     openKeranjang();
 
@@ -279,29 +290,72 @@ function addPaketToCart(paketId){
     })
     .then(r => r.json())
     .then(res => {
+  console.log('UPDATE RES:', res);
+    // 🔥 HANDLE ERROR + AUTO FIX
+    if(res.error){
+        alert(res.error);
 
+        // 🔥 kalau backend kasih max → paksa ke max
+        if(res.max !== undefined){
+            updatePaket(paketId, res.max);
+        }
+
+        return;
+    }
+
+    if(!res.cart){
+        console.log('RESPONSE ANEH:', res);
+        return;
+    }
+
+    cartCache = res.cart;
+    renderCart(cartCache);
+});
+}
+function updatePaket(paketId, qty){
+    if(qty < 1) return deletePaket(paketId);
+
+    fetch('/cart/update-paket',{
+        method:'POST',
+        headers:{
+            'Content-Type':'application/json',
+            'Accept':'application/json',
+            'X-CSRF-TOKEN':'{{ csrf_token() }}'
+        },
+        body: JSON.stringify({ paket_id: paketId, qty })
+    })
+    .then(r => r.json())
+    .then(res => {
+
+        // 🔥 STOP kalau error
         if(res.error){
             alert(res.error);
+            return; // ❗ INI PENTING BANGET
+        }
+
+        // 🔥 safety tambahan
+        if(!res.cart){
+            console.log('RESPONSE ANEH:', res);
             return;
         }
 
-        cartCache = res;
+        cartCache = res.cart;
         renderCart(cartCache);
     });
 }
-
 function deletePaket(paketId){
     fetch('/cart/delete-paket',{
         method:'POST',
         headers:{
             'Content-Type':'application/json',
+            'Accept':'application/json',
             'X-CSRF-TOKEN':'{{ csrf_token() }}'
         },
         body: JSON.stringify({ paket_id: paketId })
     })
     .then(r=>r.json())
-    .then(cart=>{
-        cartCache = cart;
+    .then(res=>{
+        cartCache = res.cart;
         renderCart(cartCache);
     });
 }
@@ -330,20 +384,26 @@ function renderCart(cart){
 
     Object.values(cart).forEach(item => {
 
+        const qty = Number(item.qty) || 1;
+        const harga = Number(item.harga) || 0;
+        const max = Number(item.max) || null;
+
         // ================= PAKET =================
         if(item.type === 'paket'){
 
-            totalItem += 1;
+            totalItem += qty;
 
             let subtotal = 0;
             let subtotalText = '<em>Pilih tanggal</em>';
 
             if(durasi > 0){
-                subtotal = item.harga * durasi;
+                subtotal = harga * qty * durasi;
                 totalHarga += subtotal;
 
-                subtotalText = `1 paket × ${durasi} hari = <b>Rp ${subtotal.toLocaleString()}</b>`;
+                subtotalText = `${qty} paket × ${durasi} hari = <b>Rp ${subtotal.toLocaleString()}</b>`;
             }
+
+            const disablePlus = max !== null && qty >= max;
 
             html += `
                 <div class="item-keranjang">
@@ -353,7 +413,7 @@ function renderCart(cart){
 
                         <strong>${item.nama}</strong>
 
-                        <p>Rp ${Number(item.harga).toLocaleString()} / paket</p>
+                        <p>Rp ${harga.toLocaleString()} / paket</p>
 
                         <small>${subtotalText}</small>
 
@@ -366,15 +426,17 @@ function renderCart(cart){
                     </div>
 
                     <div class="item-aksi">
+                        <button onclick="updatePaket(${item.paket_id}, ${qty - 1})">−</button>
+                        <span class="qty">${qty}</span>
+                        <button onclick="updatePaket(${item.paket_id}, ${qty + 1})" ${disablePlus ? 'disabled' : ''}>+</button>
                         <button onclick="deletePaket(${item.paket_id})">🗑</button>
                     </div>
                 </div>
             `;
 
-            // ✅ FIX PENTING: pakai item.paket_id (bukan undefined)
             inputs += `
                 <input type="hidden" name="produk_cabang[]" value="${item.paket_id}">
-                <input type="hidden" name="qty[]" value="${item.qty}">
+                <input type="hidden" name="qty[]" value="${qty}">
                 <input type="hidden" name="type[]" value="paket">
             `;
         }
@@ -382,16 +444,16 @@ function renderCart(cart){
         // ================= PRODUK =================
         else {
 
-            totalItem += item.qty;
+            totalItem += qty;
 
             let subtotal = 0;
             let subtotalText = '<em>Pilih tanggal</em>';
 
             if(durasi > 0){
-                subtotal = item.qty * item.harga * durasi;
+                subtotal = qty * harga * durasi;
                 totalHarga += subtotal;
 
-                subtotalText = `${item.qty} × ${durasi} hari = <b>Rp ${subtotal.toLocaleString()}</b>`;
+                subtotalText = `${qty} × ${durasi} hari = <b>Rp ${subtotal.toLocaleString()}</b>`;
             }
 
             html += `
@@ -400,16 +462,16 @@ function renderCart(cart){
 
                         <strong>${item.nama}</strong>
 
-                        <p>Rp ${Number(item.harga).toLocaleString()} / hari</p>
+                        <p>Rp ${harga.toLocaleString()} / hari</p>
 
                         <small>${subtotalText}</small>
 
                     </div>
 
                     <div class="item-aksi">
-                        <button onclick="updateCart(${item.idstok},${item.qty-1})">−</button>
-                        <span class="qty">${item.qty}</span>
-                        <button onclick="updateCart(${item.idstok},${item.qty+1})">+</button>
+                        <button onclick="updateCart(${item.idstok},${qty-1})">−</button>
+                        <span class="qty">${qty}</span>
+                        <button onclick="updateCart(${item.idstok},${qty+1})">+</button>
                         <button onclick="deleteCart(${item.idstok})">🗑</button>
                     </div>
                 </div>
@@ -417,7 +479,7 @@ function renderCart(cart){
 
             inputs += `
                 <input type="hidden" name="produk_cabang[]" value="${item.idstok}">
-                <input type="hidden" name="qty[]" value="${item.qty}">
+                <input type="hidden" name="qty[]" value="${qty}">
                 <input type="hidden" name="type[]" value="produk">
             `;
         }

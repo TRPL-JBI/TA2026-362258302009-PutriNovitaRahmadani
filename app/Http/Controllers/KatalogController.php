@@ -60,6 +60,14 @@ public function katalogCabang()
 
     $paketList = Paket::with('detail.stokCabang.produk')
     ->where('cabang_id', $cabangId)
+
+    ->whereDoesntHave('detail', function ($q) {
+        $q->whereHas('stokCabang', function ($s) {
+            $s->whereColumn('stok_cabang.jumlah', '<', 'paket_detail.qty')
+              ->orWhere('stok_cabang.is_active', 0);
+        });
+    })
+
     ->get();
     return view('katalog_produk', compact('produkList','kategoriList','rekening', 'paketList'));
 }  
