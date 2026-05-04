@@ -59,15 +59,42 @@ if (toggleBtn) {
 }
 
 // ================= MENU =================
-document.querySelectorAll('.menu-title').forEach(title => {
+const menuTitles = document.querySelectorAll('.menu-title');
+
+// LOAD STATE SAAT HALAMAN DIBUKA
+menuTitles.forEach((title, index) => {
+  let isOpen = localStorage.getItem('menu_' + index) === 'true';
+
+  if (isOpen) {
+    title.classList.add('open');
+
+    let next = title.nextElementSibling;
+    while (next && !next.classList.contains('menu-title')) {
+      next.style.display = 'flex';
+      next = next.nextElementSibling;
+    }
+  } else {
+    let next = title.nextElementSibling;
+    while (next && !next.classList.contains('menu-title')) {
+      next.style.display = 'none';
+      next = next.nextElementSibling;
+    }
+  }
+});
+
+// CLICK EVENT
+menuTitles.forEach((title, index) => {
   title.addEventListener('click', () => {
     if (sidebar.classList.contains('collapsed')) return;
 
     let open = title.classList.toggle('open');
-    let next = title.nextElementSibling;
 
+    // SIMPAN KE STORAGE
+    localStorage.setItem('menu_' + index, open);
+
+    let next = title.nextElementSibling;
     while (next && !next.classList.contains('menu-title')) {
-      next.style.display = open ? 'none' : 'flex';
+      next.style.display = open ? 'flex' : 'none';
       next = next.nextElementSibling;
     }
   });
