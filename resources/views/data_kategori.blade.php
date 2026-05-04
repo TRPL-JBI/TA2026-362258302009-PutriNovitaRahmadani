@@ -34,6 +34,8 @@
     </div>
 
     {{-- Table --}}
+    {{-- Table --}}
+<div class="table-wrapper">
     <table class="table-kategori">
         <thead>
             <tr>
@@ -50,13 +52,11 @@
                 <td>{{ $item->nama_kategori }}</td>
                 <td>{{ $item->produk_sum_stok_pusat ?? 0 }}</td>
                 <td>
-                    {{-- BUTTON EDIT: HARUS type="button" --}}
                     <button type="button" class="btn-edit"
                         onclick="openEditModal('{{ $item->idkategori }}','{{ $item->nama_kategori }}')">
                         <i class="fa-solid fa-pen-to-square"></i>
                     </button>
 
-                    {{-- FORM DELETE --}}
                     <form action="{{ route('kategori.destroy', $item->idkategori) }}"
                           method="POST" style="display:inline;">
                         @csrf
@@ -71,7 +71,6 @@
             @endforeach
         </tbody>
     </table>
-
 </div>
 
 {{-- Modal Tambah --}}

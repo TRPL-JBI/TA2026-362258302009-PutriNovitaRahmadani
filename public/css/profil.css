@@ -1,12 +1,14 @@
-
+/* ===== PROFILE ===== */
 .profile-container {
   background: #ffffff;
   border: 1px solid #999;
   border-radius: 12px;
   padding: 24px;
+
   width: 80%;
   max-width: 100%;
-  margin: 10px 120px;
+  margin: 20px auto;
+  box-sizing: border-box;
 }
 
 /* TAB */
@@ -25,11 +27,11 @@
   cursor: pointer;
   font-weight: 500;
   text-decoration: none;
+  position: relative;
 }
 
 .tab.active {
   color: #b45300;
-  position: relative;
 }
 
 .tab.active::after {
@@ -40,7 +42,7 @@
   width: 100%;
   height: 8px;
   background: #b45300;
-  border-radius: 0 0 20px 20px; 
+  border-radius: 0 0 20px 20px;
 }
 
 /* FORM */
@@ -58,16 +60,13 @@
   width: 100%;
 }
 
-.form-row.center {
-  justify-content: center;
-}
-
 .profile-form input {
   width: 100%;
   padding: 12px 14px;
   border-radius: 10px;
   border: 1px solid #7d7dc5;
   font-size: 14px;
+  box-sizing: border-box;
 }
 
 /* BUTTON */
@@ -83,6 +82,50 @@
   cursor: pointer;
 }
 
-.btn-simpan:hover {
-  background: #9c4600;
+/* ================= MOBILE FIX (INI YANG PENTING) ================= */
+@media (max-width: 768px) {
+
+  .profile-container {
+  background: #ffffff;
+  border: 1px solid #999;
+  border-radius: 12px;
+  padding: 24px;
+
+  width: 100%;          /* ⬅️ PENTING: jangan 80% */
+  max-width: 900px;     /* ⬅️ biar tetap rapi di desktop */
+  
+  margin: 20px auto;    /* center tapi tidak sempit */
+  box-sizing: border-box;
+}
+
+  .profile-tabs {
+    gap: 20px;
+    flex-wrap: nowrap;    /* jangan turun */
+    justify-content: center;
+  }
+
+  .tab {
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  .tab.active::after {
+    height: 5px;
+    bottom: -6px;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .profile-form input {
+    font-size: 13px;
+    padding: 10px 12px;
+  }
+
+  .btn-simpan {
+    font-size: 14px;
+    padding: 12px;
+  }
 }

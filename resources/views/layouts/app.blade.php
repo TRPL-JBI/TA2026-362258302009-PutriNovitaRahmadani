@@ -40,12 +40,25 @@
 const sidebar = document.getElementById('sidebar');
 const toggleBtn = document.getElementById('toggleBtn');
 
+// ✅ Load state saat pertama kali halaman dibuka
+if (localStorage.getItem('sidebar-collapsed') === 'true') {
+  sidebar.classList.add('collapsed');
+}
+
+// ✅ Saat tombol diklik
 if (toggleBtn) {
   toggleBtn.onclick = () => {
     sidebar.classList.toggle('collapsed');
+
+    // simpan state ke localStorage
+    localStorage.setItem(
+      'sidebar-collapsed',
+      sidebar.classList.contains('collapsed')
+    );
   };
 }
 
+// ================= MENU =================
 document.querySelectorAll('.menu-title').forEach(title => {
   title.addEventListener('click', () => {
     if (sidebar.classList.contains('collapsed')) return;
@@ -60,6 +73,7 @@ document.querySelectorAll('.menu-title').forEach(title => {
   });
 });
 
+// ================= USER DROPDOWN =================
 const userBtn = document.getElementById('userBtn');
 const dropdownMenu = document.getElementById('dropdownMenu');
 
@@ -74,7 +88,6 @@ document.addEventListener('click', () => {
   dropdownMenu?.classList.remove('show');
 });
 </script>
-
 @stack('scripts')
 
 </body>

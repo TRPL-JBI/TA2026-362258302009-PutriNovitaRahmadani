@@ -39,7 +39,7 @@ class KatalogController extends Controller
     return redirect()->route('katalog_produk');
 }
 
-public function katalogCabang()
+public function katalogCabang(Request $request)
 {
     // proteksi
     if (!session()->has('cabang_id')) {
@@ -48,29 +48,49 @@ public function katalogCabang()
 
     $cabangId = session('cabang_id');
 
-    $produkList = StokCabang::where('cabang_idcabang', $cabangId)
-                     ->where('is_active', 1)
-                     ->where('jumlah', '>', 0)
-                     ->get();
+    $produkList = StokCabang::with('produk') // biar bisa search nama produk
+        ->where('cabang_idcabang', $cabangId)
+        ->where('is_active', 1)
+        ->where('jumlah', '>', 0)
 
-    // ambil kategori untuk filter
+        // 🔍 SEARCH
+        ->when($request->search, function ($q) use ($request) {
+            $q->whereHas('produk', function ($p) use ($request) {
+                $p->where('nama_produk', 'like', '%' . $request->search . '%');
+            });
+        })
+
+        // 📂 FILTER KATEGORI
+        ->when($request->kategori, function ($q) use ($request) {
+            $q->whereHas('produk', function ($p) use ($request) {
+                $p->where('kategori_idkategori', $request->kategori);
+            });
+        })
+
+        ->paginate(8);
+
+    // kategori untuk filter
     $kategoriList = Kategori::all();
 
     $rekening = Rekening::where('cabang_idcabang', $cabangId)->first();
 
     $paketList = Paket::with('detail.stokCabang.produk')
-    ->where('cabang_id', $cabangId)
+        ->where('cabang_id', $cabangId)
+        ->whereDoesntHave('detail', function ($q) {
+            $q->whereHas('stokCabang', function ($s) {
+                $s->whereColumn('stok_cabang.jumlah', '<', 'paket_detail.qty')
+                  ->orWhere('stok_cabang.is_active', 0);
+            });
+        })
+        ->get();
 
-    ->whereDoesntHave('detail', function ($q) {
-        $q->whereHas('stokCabang', function ($s) {
-            $s->whereColumn('stok_cabang.jumlah', '<', 'paket_detail.qty')
-              ->orWhere('stok_cabang.is_active', 0);
-        });
-    })
-
-    ->get();
-    return view('katalog_produk', compact('produkList','kategoriList','rekening', 'paketList'));
-}  
+    return view('katalog_produk', compact(
+        'produkList',
+        'kategoriList',
+        'rekening',
+        'paketList'
+    ));
+}
 public function pilihPusat($id)
 {
     $pusat = User::where('idusers', $id)->firstOrFail();

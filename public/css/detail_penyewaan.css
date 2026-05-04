@@ -158,3 +158,88 @@ tbody tr {
     font-weight: 600;
     cursor: pointer;
 }
+
+/* ============================= */
+/* RESPONSIVE MOBILE DETAIL     */
+/* ============================= */
+
+@media (max-width: 768px) {
+
+    /* WRAPPER */
+    .detail-wrapper {
+        width: 100%;
+        margin: 10px 0 30px;
+        border-radius: 0;
+    }
+
+    /* TITLE */
+    .detail-title-bar {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .badge-status {
+        position: static;
+        display: inline-block;
+        margin-top: 8px;
+    }
+
+    /* ============================= */
+    /* INFO CARD (INI YANG PENTING) */
+    /* ============================= */
+
+     /* INFO CARD */
+    .info-card {
+        margin: 15px;
+    }
+
+    .info-scroll {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .info-table {
+        grid-template-columns: 180px 1fr 180px 1fr; /* tetap horizontal */
+        min-width: 700px; /* penting */
+    }
+
+    .info-cell {
+        white-space: nowrap; /* biar ga turun */
+    }
+    .info-cell:last-child {
+        border-bottom: none !important;
+    }
+
+    /* ============================= */
+    /* TABLE SCROLL                 */
+    /* ============================= */
+
+    .table-wrapper {
+        margin: 0 15px;
+        overflow-x: auto;
+    }
+
+    table {
+        min-width: 600px; /* biar bisa geser */
+    }
+
+    /* ============================= */
+    /* BUTTONS                      */
+    /* ============================= */
+
+    .action-buttons {
+        flex-direction: column;
+        gap: 12px;
+        padding: 0 15px;
+    }
+
+    .btn-konfirmasi,
+    .btn-kembali {
+        width: 100%;
+    }
+    /* ============================= */
+/* SCROLL INFO CARD (HIJAU)     */
+/* ============================= */
+
+
+}

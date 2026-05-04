@@ -30,6 +30,7 @@
 
     {{-- INFO --}}
     <div class="info-card">
+        <div class="info-scroll">
         <div class="info-table">
 
             <div class="info-cell label">Penyewa</div>
@@ -69,7 +70,7 @@
                     -
                 @endif
             </div>
-
+</div>
         </div>
     </div>
 

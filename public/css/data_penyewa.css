@@ -387,3 +387,100 @@ th {
     opacity: 0.4;
     pointer-events: none;
 }
+
+@media (max-width: 768px) {
+
+  /* ===== LAYOUT ===== */
+  .page-container {
+    padding: 15px;
+  }
+
+  /* ===== HEADER ===== */
+  .page-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .search-box {
+    width: 100%;
+  }
+
+  .btn-add {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* ===== TABLE ===== */
+  .table-wrapper {
+    overflow-x: auto; /* 🔥 scroll horizontal */
+  }
+
+  table {
+    min-width: 600px; /* biar struktur gak hancur */
+  }
+
+  th, td {
+    font-size: 12px;
+    padding: 10px;
+  }
+
+  /* ===== AKSI BUTTON ===== */
+  .aksi {
+    gap: 5px;
+  }
+
+  .btn-green,
+  .btn-yellow {
+    padding: 5px 8px;
+    font-size: 12px;
+  }
+
+  /* ===== PAGINATION ===== */
+  .pagination-simple {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .pagination-simple .page,
+  .pagination-simple .nav {
+    font-size: 14px;
+  }
+
+  /* ===== MODAL ===== */
+  .modal-box {
+    width: 95%;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .modal-body {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .modal-left,
+  .modal-right {
+    width: 100%;
+  }
+
+  .modal-left img {
+    max-height: 200px;
+    object-fit: cover;
+  }
+
+  /* ===== FORM ===== */
+  .form-group input {
+    font-size: 13px;
+  }
+
+  .field-label {
+    font-size: 11px;
+  }
+
+  /* ===== IMAGE PREVIEW ===== */
+  #imgPreviewOverlay img {
+    max-width: 95%;
+    max-height: 80%;
+  }
+}

@@ -212,3 +212,53 @@
         opacity: 1;
     }
 }
+
+/* ============================= */
+/* RESPONSIVE MOBILE            */
+/* ============================= */
+
+@media (max-width: 768px) {
+
+    /* HEADER JADI KE BAWAH */
+    .header-kategori {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    /* DATA PER HALAMAN (ATAS) */
+    .header-kategori .left {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    /* SEARCH (TENGAH) */
+    .header-kategori .right {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .header-kategori input[type="text"] {
+        width: 100%;
+    }
+
+    .btn-tambah {
+        width: 100%;
+        text-align: center;
+    }
+
+    /* ============================= */
+    /* SCROLL KHUSUS TABEL          */
+    /* ============================= */
+
+    .table-wrapper {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .table-kategori {
+        min-width: 600px; /* biar bisa geser */
+    }
+}

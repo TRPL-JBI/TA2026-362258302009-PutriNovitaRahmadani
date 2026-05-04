@@ -15,21 +15,33 @@
 
     <!-- TOP BAR -->
     <div class="top-bar">
+    <form id="filterForm" method="GET"
+          style="width:100%; display:flex; justify-content:space-between; align-items:center;">
+
+        <!-- KIRI -->
         <div class="left">
-            <form id="filterForm" method="GET">
-                <select class="per-page" name="per_page" onchange="this.form.submit()">
-                    <option value="10" {{ request('per_page')==10?'selected':'' }}>10</option>
-                    <option value="25" {{ request('per_page')==25?'selected':'' }}>25</option>
-                    <option value="50" {{ request('per_page')==50?'selected':'' }}>50</option>
-                    <option value="100" {{ request('per_page')==100?'selected':'' }}>100</option>
-                </select>
-                <span>Data Per Halaman</span>
+            <select class="per-page" name="per_page" onchange="this.form.submit()">
+                <option value="10" {{ request('per_page')==10?'selected':'' }}>10</option>
+                <option value="25" {{ request('per_page')==25?'selected':'' }}>25</option>
+                <option value="50" {{ request('per_page')==50?'selected':'' }}>50</option>
+                <option value="100" {{ request('per_page')==100?'selected':'' }}>100</option>
+            </select>
 
-                <input type="text" class="search" name="search" placeholder="Pencarian..." value="{{ request('search') }}">
-            </form>
+            <span>Data Per Halaman</span>
         </div>
-    </div>
 
+        <!-- KANAN (INI YANG KAMU MAU) -->
+        <div class="right">
+            <input type="text"
+                   class="search"
+                   name="search"
+                   placeholder="Pencarian..."
+                   value="{{ request('search') }}">
+        </div>
+
+    </form>
+</div>
+<div class="table-wrapper">
     <!-- HEADER -->
     <div class="table-header">
         <div>No.</div>
@@ -115,7 +127,7 @@
         Detail
     </a>
 </div>
-
+</div>
             </div>
         </div>
     @empty

@@ -72,10 +72,10 @@
                     <div class="col no">{{ $no++ }}</div>
 
                     <div class="col tanggal">
-                        {{ $item->tanggal_permintaan
-                            ? \Carbon\Carbon::parse($item->tanggal_permintaan)->translatedFormat('d F Y')
-                            : '-' }}
-                    </div>
+    {{ $item->tanggal_permintaan
+        ? \Carbon\Carbon::parse($item->tanggal_permintaan)->translatedFormat('l, d F Y')
+        : '-' }}
+</div>
 
                     <div class="col total">
                         {{ $item->produkDetail->count() }} alat
@@ -118,7 +118,7 @@
     <form action="{{ route('distribusi_produk.terima', $item->idpermintaan) }}" method="POST">
     @csrf
     <button type="submit" class="btn btn-confirm">
-        <i class="fa-solid fa-check"></i> Terima Barang
+        <i class="fa-solid fa-circle-check"></i> Terima Barang
     </button>
 </form>
 

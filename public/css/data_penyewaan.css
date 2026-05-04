@@ -1,7 +1,7 @@
 /* ================== CONTAINER ================== */
 .container-data {
-    max-width: 1000px;
     width: 100%;
+max-width: 1200px;
     margin: 10px auto 40px;
     padding: 16px 20px;
     background: #ffffff;
@@ -21,10 +21,24 @@
     gap: 10px;
 }
 
-.top-bar .left form {
+/* FIX: form adalah parent langsung, bukan di .left */
+.top-bar form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.left {
     display: flex;
     align-items: center;
     gap: 10px;
+}
+
+.right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 }
 
 .per-page {
@@ -41,6 +55,7 @@
     border-radius: 18px;
     border: 1.5px solid #999;
     font-size: 13px;
+    box-sizing: border-box;
 }
 
 /* ================== TABLE WRAPPER ================== */
@@ -88,8 +103,15 @@
     text-align: center;
     border-bottom: 1px solid #cfcfcf;
     min-width: 850px;
+    box-sizing: border-box; /* 🔥 penting biar padding gak nambah lebar */
 }
 
+.table-row > div:last-child {
+    padding: 0 5px;
+    display: flex;              /* 🔥 biar tombol center & stabil */
+    justify-content: center;
+    align-items: center;
+}
 /* ================== STATUS BADGE ================== */
 .status {
     padding: 4px 12px;
@@ -254,3 +276,138 @@
 .icon-btn:focus {
     outline: none;
 }
+
+
+  /* ===== TABLE ===== */
+  @media (max-width: 768px) {
+
+  /* ===== CONTAINER ===== */
+  .container-data {
+    padding: 14px;
+    margin: 10px auto 20px;
+    overflow-x: hidden; /* scroll tetap */
+  }
+
+  
+ .top-bar {
+    display: flex;
+    flex-direction: column !important; /* KUNCI UTAMA */
+    align-items: stretch;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .top-bar form {
+    display: flex;
+    flex-direction: column !important; /* KUNCI KEDUA */
+    gap: 10px;
+    width: 100%;
+  }
+
+  .top-bar .left,
+  .top-bar .right {
+    width: 100%;
+  }
+
+  .top-bar .left form {
+    width: 100%;
+  }
+
+  .search {
+    width: 100%;
+    box-sizing: border-box;
+  }
+  /* BUTTON */
+  .btn-orange {
+    width: 100%;
+    display: block;
+    text-align: center;
+  }
+ 
+  /* ================= TABLE ================= */
+
+    .table-header,
+  .table-row {
+    grid-template-columns: 50px 1.5fr 2fr 1fr 1fr 1fr 0.8fr;
+    align-items: center;
+    text-align: center;
+  }
+
+  .table-header div,
+  .table-row div {
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  /* aksi saja yang flex */
+  .table-row div:last-child {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+  }
+  /* ===== KONFIRMASI ===== */
+  .confirm,
+  .confirm-wrap {
+    display: flex;
+    gap: 6px;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .icon-btn,
+  .icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    font-size: 11px;
+  }
+
+  /* 🔥 AKSI FIX (INI KUNCI MASALAHMU) */
+  .table-row div:last-child {
+    min-width: 0;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* 🔥 DETAIL BIAR GA KELUAR */
+  .btn-detail {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    white-space: nowrap;
+    text-align: center;
+    padding: 5px 8px;
+    font-size: 11px;
+    overflow: hidden;
+  }
+
+  /* ===== STATUS ===== */
+  .status {
+    font-size: 11px;
+    padding: 3px 8px;
+  }
+
+  /* ===== PAGINATION ===== */
+  .pagination-simple {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .pagination-simple .page {
+    font-size: 13px;
+  }
+
+  .pagination-simple .nav {
+    font-size: 18px;
+  }
+
+  /* ===== INFO ===== */
+  .info-riwayat {
+    font-size: 13px;
+    padding: 10px;
+  }
+}
+

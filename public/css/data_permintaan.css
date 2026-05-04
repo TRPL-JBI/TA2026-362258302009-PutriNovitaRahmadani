@@ -4,51 +4,75 @@
     border-radius: 14px;
     padding: 26px 28px;
     border: 1px solid #b8bbbf;
-    max-width: 980px;
+    width: 100%;          /* 🔥 wajib biar fleksibel */
+    max-width: 1200px;
     margin: auto;
 }
 
 /* ===== HEADER ===== */
+/* ================== HEADER ================== */
 .data-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 16px;
     margin-bottom: 22px;
+    flex-wrap: wrap; /* penting biar gak berantakan di layar kecil */
 }
 
+/* kiri & kanan */
 .data-left,
 .data-right {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
+/* ================== FORM ELEMENT HEIGHT SERAGAM ================== */
+.per-page,
+.search-table {
+    height: 38px;
+    
+}
+.btn {
+    height: 38px;
+    border: none !important;
+    box-shadow: none !important;
+}
+/* select */
 .per-page {
-    padding: 6px 10px;
+    padding: 0 10px;
     border-radius: 8px;
     border: 1px solid #d1d5db;
     font-size: 14px;
 }
 
+/* text info */
 .per-page-text {
     font-size: 14px;
     color: #374151;
+    white-space: nowrap;
 }
 
+/* search */
 .search-table {
-    padding: 8px 16px;
+    width: 220px; /* biar lebih proporsional */
+    padding: 0 14px;
     border-radius: 20px;
     border: 1px solid #d1d5db;
     font-size: 14px;
-    width: 190px;
+    outline: none;
 }
 
-/* ===== BUTTON ===== */
+/* ================== BUTTON ================== */
 .btn {
-    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 0 16px;
     border-radius: 12px;
-    border: none;
-    cursor: pointer;
     font-size: 14px;
     font-weight: 600;
     white-space: nowrap;
@@ -57,8 +81,8 @@
 .btn-orange {
     background: #f59e0b;
     color: #fff;
+    text-decoration: none;
 }
-
 .btn-detail {
     background: #2563eb;
     color: #fff;
@@ -75,18 +99,27 @@
     border-radius: 14px;
     overflow: hidden;
     border: 1px solid #e5e7eb;
+    background: #fff; /* 🔥 WAJIB putih, bukan orange */
 }
 
 .table-header,
 .table-row {
     display: grid;
-    grid-template-columns: 70px 240px 150px 160px 1fr;
+    grid-template-columns: 
+        70px 
+        1.5fr 
+        1.2fr 
+        1.2fr 
+        1.5fr;
+    align-items: center;
+    text-align: center;
 }
 
 .table-header {
     background: #fdecc8;
     font-weight: 600;
     font-size: 14px;
+    border-radius: 14px 14px 0 0; /* 🔥 biar nutup atas */
 }
 
 .table-row {
@@ -98,6 +131,7 @@
     font-size: 14px;
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 /* ===== STATUS BADGE ===== */
@@ -110,8 +144,10 @@
     align-items: center;
     gap: 6px;
     border: 1.5px solid transparent; /* supaya ukuran sama */
-     margin: 0 auto; 
+     margin: 0 auto;
+    justify-content: center;
      transform: translateX(-30px);
+     
 }
 
 /* ✅ SUCCESS */
@@ -237,4 +273,136 @@
 .pagination-simple .nav.disabled {
     opacity: 0.4;
     pointer-events: none;
+}
+
+/* ================== TABLE RESPONSIVE ================== */
+@media (max-width: 768px) {
+
+    .data-permintaan {
+        padding: 16px;
+    }
+
+    data-header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .data-left {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap; /* 🔥 biar turun kalau sempit */
+    align-items: center;
+    gap: 6px;
+  }
+  /* SELECT */
+  .per-page {
+    flex-shrink: 0; /* jangan gepeng */
+  }
+
+  /* TEXT "Data per halaman" */
+  .per-page-text {
+    font-size: 13px;
+    white-space: normal; /* 🔥 INI KUNCI */
+    line-height: 1.2;
+  }
+
+  /* 🔥 BAGIAN KANAN (KUNCI UTAMA) */
+  .data-right {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch; /* 🔥 INI YANG BIKIN FULL */
+  }
+
+  /* 🔥 SEARCH FULL FIX */
+  .search-table {
+    width: 100% !important;
+    max-width: 100%;
+    display: block;
+    box-sizing: border-box;
+    margin: 0; /* 🔥 hapus offset */
+  }
+
+  /* 🔥 AJUKAN FULL */
+  .btn-orange {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+    .btn {
+        border: none !important;
+        box-shadow: none !important;
+        font-size: 13px;
+    }
+
+    /* TABLE */
+    .table-wrapper {
+        overflow-x: auto;
+    }
+
+    .table-header,
+    .table-row {
+        display: grid;
+        grid-template-columns: 70px 240px 150px 160px 1fr;
+        min-height: 48px;
+    }
+
+    .col.aksi {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        justify-content: flex-start;
+    }
+
+    .btn-confirm,
+    .btn-detail {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+
+    .badge {
+        transform: none;
+        margin: auto;
+    }
+
+    .pagination-simple {
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+}
+
+
+/* ================== HP kecil ================== */
+@media (max-width: 480px) {
+
+    .data-permintaan {
+        padding: 12px;
+    }
+
+    .search-table {
+        font-size: 13px;
+    }
+
+    .per-page {
+        font-size: 13px;
+    }
+
+    .table-header,
+    .table-row {
+        min-width: 600px;
+        grid-template-columns: 60px 180px 130px 130px 120px;
+    }
+
+    .modal-content {
+        width: 92%;
+    }
+
+    .modal-table th,
+    .modal-table td {
+        font-size: 12px;
+    }
 }

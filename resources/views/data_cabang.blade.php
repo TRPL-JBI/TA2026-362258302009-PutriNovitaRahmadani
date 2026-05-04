@@ -30,6 +30,7 @@
     <div class="pagination-wrap">
     {{ $cabang->links() }}
     </div>
+    <div class="table-wrapper">
         <div class="table-top">
            <form method="GET">
             <select name="entries" onchange="this.form.submit()">
@@ -40,6 +41,7 @@
             <span>Data Per Halaman</span>
             </form>
         </div>
+         <div class="table-scroll">
         <table class="table-cabang" id="dataTable">
             <thead>
                 <tr>
@@ -110,7 +112,7 @@
             </button>
         </form>
     </div>
-
+</div>
 @elseif (in_array($c->status_cabang, ['aktif','nonaktif']))
     <i class="fa-solid fa-circle-check text-success"></i>
 
@@ -140,7 +142,7 @@
         </table>
     </div>
 </div>
-
+</div>
 {{-- MODAL DETAIL --}}
 <div class="modal" id="modalDetail">
     <div class="modal-box">

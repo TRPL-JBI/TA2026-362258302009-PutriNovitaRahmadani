@@ -1,94 +1,130 @@
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Roboto',sans-serif}
-body{background:#f7f3ee}
-.layout{display:flex;min-height:100vh}
-
-/* SIDEBAR */
-.sidebar{
-  width:225px;
-  background:#fff;
-  padding:16px;
-  border-right:1px solid #eee;
-  transition:width .3s ease
-}
-.sidebar.collapsed{width:80px}
-
-/* HEADER */
-.sidebar-header{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin-bottom:16px
-}
-.logo{margin-left:45px}
-.logo-img{width:95px}
-.sidebar.collapsed .logo{display:none}
-
-.toggle-btn{
-  background:none;
-  border:none;
-  font-size:20px;
-  color:#333;
-  cursor:pointer
+/* ================= RESET ================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
 }
 
-/* NAV */
-.sidebar nav a{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:9px 10px;
-  color:#000;
-  text-decoration:none;
-  border-radius:10px;
-  margin-bottom:6px;
-  font-size:14px
+/* 🔥 KUNCI GLOBAL (INI YANG MISAHIN SIDEBAR & CONTENT) */
+html, body {
+  height: 100%;
+  overflow: hidden; /* 🔥 WAJIB */
 }
-.sidebar nav a i{
-  min-width:18px;
-  text-align:center
+
+body {
+  background: #f7f3ee;
 }
+
+/* ================= LAYOUT ================= */
+.layout {
+  display: flex;
+  height: 100vh; /* 🔥 ganti dari min-height */
+}
+
+/* ================= SIDEBAR ================= */
+.sidebar {
+  width: 225px;
+  background: #fff;
+  padding: 16px;
+  border-right: 1px solid #eee;
+
+  height: 100vh;
+  position: sticky;
+  top: 0;
+
+  overflow-y: auto; /* tetap bisa scroll kalau menu panjang */
+  transition: width .3s ease;
+}
+
+.sidebar.collapsed { width: 80px; }
+
+/* ================= HEADER ================= */
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.logo { margin-left: 45px; }
+.logo-img { width: 95px; }
+.sidebar.collapsed .logo { display: none; }
+
+.toggle-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #333;
+  cursor: pointer;
+}
+
+/* ================= NAV ================= */
+.sidebar nav a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+  color: #000;
+  text-decoration: none;
+  border-radius: 10px;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.sidebar nav a i {
+  min-width: 18px;
+  text-align: center;
+}
+
 .sidebar nav a:hover,
-.sidebar nav a.active{
-  background:#D17A00;
-  color:#fff
+.sidebar nav a.active {
+  background: #D17A00;
+  color: #fff;
 }
 
-/* MENU TITLE */
-.menu-title{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  font-size:14px;
-  color:#555;
-  margin:14px 0 5px;
-  cursor:pointer
+/* ================= MENU TITLE ================= */
+.menu-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: #555;
+  margin: 14px 0 5px;
+  cursor: pointer;
 }
-.menu-title i{
-  font-size:13px;
-  transition:.3s
+
+.menu-title i {
+  font-size: 13px;
+  transition: .3s;
 }
-.menu-title.open i{transform:rotate(180deg)}
 
-/* COLLAPSE MODE */
-.sidebar.collapsed nav a span{display:none}
-.sidebar.collapsed .menu-title{display:none}
-.sidebar.collapsed nav a{justify-content:center}
-.sidebar.collapsed .sidebar-header{justify-content:center}
+.menu-title.open i {
+  transform: rotate(180deg);
+}
 
-/* ICON TIDAK HILANG */
+/* ================= COLLAPSE MODE ================= */
+.sidebar.collapsed nav a span { display: none; }
+.sidebar.collapsed .menu-title { display: none; }
+.sidebar.collapsed nav a { justify-content: center; }
+.sidebar.collapsed .sidebar-header { justify-content: center; }
+
+/* ICON tetap tampil */
 .sidebar.collapsed nav a,
-.sidebar.collapsed nav a i{
-  display:flex !important
+.sidebar.collapsed nav a i {
+  display: flex !important;
 }
 
-/* MAIN */
+/* ================= MAIN ================= */
 .main {
   flex: 1;
   display: flex;
   flex-direction: column;
+  height: 100vh;        /* 🔥 penting */
+  overflow: hidden;     /* 🔥 supaya scroll ga ke body */
 }
 
-/* TOPBAR */
+/* ================= TOPBAR ================= */
 .topbar {
   height: 64px;
   background: #fff;
@@ -97,6 +133,8 @@ body{background:#f7f3ee}
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid #eee;
+
+  flex-shrink: 0; /* 🔥 biar ga ikut shrink */
 }
 
 .topbar h2 {
@@ -105,15 +143,14 @@ body{background:#f7f3ee}
   color: #000;
 }
 
-/* DROPDOWN */
-.user-dropdown {position: relative;}
+/* ================= DROPDOWN ================= */
+.user-dropdown { position: relative; }
 
 .user-btn {
   background: none;
   border: none;
   color: #A24400;
   font-size: 14px;
-  font-style: bold;
   font-weight: 700;
   display: flex;
   align-items: center;
@@ -135,7 +172,7 @@ body{background:#f7f3ee}
   z-index: 1000;
 }
 
-.dropdown-menu.show {display:block;}
+.dropdown-menu.show { display: block; }
 
 .dropdown-menu a {
   display: flex;
@@ -147,12 +184,16 @@ body{background:#f7f3ee}
   font-size: 14px;
 }
 
-.dropdown-menu a:hover {background:#f7f3ee}
-.dropdown-menu hr {border:none;border-top:1px solid #e5e5e5}
-.dropdown-menu .logout {color:#666}
+.dropdown-menu a:hover { background: #f7f3ee; }
+.dropdown-menu hr { border: none; border-top: 1px solid #e5e5e5; }
+.dropdown-menu .logout { color: #666; }
 
-/* CONTENT */
-.content-wrapper {padding:20px}
+/* ================= CONTENT ================= */
+.content-wrapper {
+  flex: 1;
+  overflow-y: auto; /* 🔥 HANYA INI YANG SCROLL */
+  padding: 20px;
+}
 
 .filter {margin-bottom:20px}
 .filter select {
@@ -289,4 +330,88 @@ body{background:#f7f3ee}
   width: 10px;
   height: 10px;
   border-radius: 50%;
+}
+
+@media (max-width: 768px) {
+
+  /* layout tetap */
+  .layout {
+    flex-direction: row;
+  }
+
+  /* ===== DEFAULT: COLLAPSED ===== */
+  .sidebar {
+    width: 70px;
+    padding: 10px 6px;
+  }
+
+  /* SEMBUNYIKAN SAAT COLLAPSED */
+  .sidebar.collapsed nav a span {
+    display: none;
+  }
+
+  .sidebar.collapsed .menu-title {
+    display: none;
+  }
+
+  .sidebar.collapsed .logo {
+    display: none;
+  }
+
+  .sidebar.collapsed nav a {
+    justify-content: center;
+    padding: 10px 0;
+  }
+
+  .sidebar.collapsed .sidebar-header {
+    justify-content: center;
+  }
+
+  /* ===== SAAT EXPAND (toggle diklik) ===== */
+  .sidebar:not(.collapsed) {
+    width: 220px;
+    padding: 16px;
+  }
+
+  .sidebar:not(.collapsed) nav a span {
+    display: inline;
+  }
+
+  .sidebar:not(.collapsed) .menu-title {
+    display: flex;
+  }
+
+  .sidebar:not(.collapsed) .logo {
+    display: block;
+    margin-left: 0;
+  }
+
+  .sidebar:not(.collapsed) nav a {
+    justify-content: flex-start;
+    padding: 9px 10px;
+  }
+
+  /* MAIN aman */
+  .main {
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* CARD */
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-bottom {
+    grid-template-columns: 1fr;
+  }
+
+  .chart-wrapper {
+    height: 200px;
+  }
+
+  .donut-wrapper {
+    width: 120px;
+    height: 120px;
+  }
 }

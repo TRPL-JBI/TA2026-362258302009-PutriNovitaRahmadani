@@ -37,7 +37,7 @@
 
     </form>
 </div>
-
+<div class="table-wrapper">
     <!-- HEADER -->
     <div class="table-header">
         <div>No.</div>
@@ -115,16 +115,14 @@
     <span class="icon ok">✔</span>
 @endif
 
-</div>
-            <div>
-                <div>
-    <a href="{{ route('admin.penyewaan.detail', $p->idpenyewaan) }}" 
-       class="btn-detail">
-        Detail
-    </a>
-</div>
 
-            </div>
+</div>
+         <div>
+       <a href="{{ route('admin.penyewaan.detail', $p->idpenyewaan) }}" 
+          class="btn-detail">
+          Detail
+       </a>
+   </div>
         </div>
     @empty
         <p style="text-align:center;margin-top:40px;">Belum ada riwayat penyewaan</p>
@@ -155,7 +153,7 @@
     @endif
 </div>
 
-
+</div>
 
 </div>
 @endsection

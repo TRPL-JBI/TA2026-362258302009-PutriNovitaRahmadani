@@ -289,3 +289,129 @@ html {
   font-size: 12px;
   z-index: 2;
 }
+ /* ===== TABLET DULU ===== */
+/* ===== TABLET ===== */
+@media (max-width: 992px) {
+
+  .hero-content-penyewa {
+    width: 90%;
+  }
+
+  .cabang-container {
+    width: 100%;
+  }
+
+  .cabang-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .timeline {
+    width: 90%;
+  }
+}
+
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+
+  /* HERO */
+  .hero-penyewa {
+    height: auto;
+    min-height: 70vh;
+  }
+
+  .hero-content-penyewa {
+    width: 90%;
+  }
+
+  .hero-penyewa h1 {
+    font-size: 20px;
+  }
+
+  .hero-penyewa p {
+    font-size: 13px;
+  }
+
+  .hero-btn {
+    flex-wrap: wrap;
+  }
+
+
+  /* PROFIL */
+  .profil-wrap {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .profil-img,
+  .profil-text {
+    width: 100%;
+  }
+
+  .profil-img {
+    height: 200px;
+  }
+
+
+  /* CABANG */
+  .cabang-container {
+    width: 100%;
+    padding: 0 10px;
+  }
+
+  .cabang-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .left, .right {
+    display: none;
+  }
+
+
+ .syarat {
+    display: block;
+    width: 100%;
+    padding: 40px 15px;
+    overflow: visible;
+  }
+
+  .timeline {
+    width: 100%;
+    position: relative;
+    min-height: 300px; /* biar section pasti muncul */
+    margin: 30px auto;
+  }
+
+  .timeline-row {
+    display: block;
+    position: relative;
+    margin-bottom: 20px;
+    min-height: 70px;
+  }
+
+  .timeline-box {
+    width: 100%;
+    margin-left: 35px;
+    display: block;
+  }
+
+  .timeline-circle {
+    position: absolute;
+    left: 0;
+    top: 15px;
+  }
+
+  .timeline-line {
+    left: 13px;
+    top: 0;
+    height: 100%;
+    position: absolute;
+    display: none;
+  }
+}
+/* ===== GLOBAL SAFETY ===== */
+.hero-content-penyewa,
+.cabang-container,
+.timeline {
+  max-width: 100%;
+}

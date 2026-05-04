@@ -70,7 +70,25 @@ html {
   font-size: 14px;
   display: inline-block;
 }
+@media (max-width: 768px) {
 
+    .nav-right {
+        gap: 15px; /* dari 40 → kecil */
+    }
+
+    .nav-right ul {
+        gap: 10px; /* dari 20 → kecil */
+    }
+
+    .nav-right a {
+        font-size: 12px; /* biar muat */
+    }
+
+    .btn-login {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+}
 .btn-login:hover {
   background: #933c07;
   color: #fff !important; /* hover tetap putih */

@@ -43,6 +43,7 @@
 
     </form>
 </div>
+<div class="table-wrapper">
 
     <!-- HEADER -->
     <div class="table-header">
@@ -129,6 +130,7 @@
         @endif
     </div>
 
+</div>
 </div>
 @endsection
 @push('scripts')

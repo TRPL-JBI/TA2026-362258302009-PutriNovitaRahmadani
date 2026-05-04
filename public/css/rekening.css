@@ -83,3 +83,51 @@
 .btn-simpan:hover{
   background:#9c4600
 }
+/* ============================= */
+/* RESPONSIVE PROFILE           */
+/* ============================= */
+@media (max-width: 768px) {
+
+  /* CONTAINER */
+  .profile-container {
+    width: 100%;
+    max-width: 500px;     /* ⬅️ biar ga kepanjangan */
+    margin: 12px auto;    /* ⬅️ center & hilangkan 120px */
+    padding: 16px;
+    border-radius: 12px;
+    box-sizing: border-box;
+  }
+
+  /* TAB */
+  .profile-tabs {
+    gap: 20px;
+    flex-wrap: wrap;      /* ⬅️ biar ga kepotong */
+  }
+
+  .tab {
+    font-size: 13px;
+  }
+
+  .tab.active::after {
+    height: 6px;
+    bottom: -8px;
+    border-radius: 0 0 14px 14px;
+  }
+
+  /* FORM */
+  .form-row {
+    flex-direction: column;  /* ⬅️ jadi ke bawah */
+    gap: 10px;
+  }
+
+  .profile-form input {
+    font-size: 13px;
+    padding: 10px 12px;
+  }
+
+  /* BUTTON */
+  .btn-simpan {
+    font-size: 14px;
+    padding: 12px;
+  }
+}
