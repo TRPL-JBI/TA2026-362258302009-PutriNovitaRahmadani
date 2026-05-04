@@ -79,7 +79,7 @@
         <span>Kontrak Franchise</span>
     </a>
 
-    <div class="menu-title {{ in_array($active ?? '', ['penyewa']) ? 'open' : '' }}">
+    <div class="menu-title">
         Manajemen Penyewa <i class="fa-solid fa-chevron-down"></i>
     </div>
 
@@ -90,7 +90,7 @@
     </a>
 
 
-    <div class="menu-title {{ in_array($active ?? '', ['sewa','riwayat']) ? 'open' : '' }}">
+    <div class="menu-title">
         Manajemen Penyewaan <i class="fa-solid fa-chevron-down"></i>
     </div>
 
@@ -112,7 +112,7 @@
         <span>Laporan Pendapatan</span>
     </a>
     
-    <div class="menu-title {{ in_array($active ?? '', ['produk','kategori']) ? 'open' : '' }}">
+    <div class="menu-title">
         Manajemen Produk <i class="fa-solid fa-chevron-down"></i>
     </div>
 
@@ -144,7 +144,7 @@
 {{-- ================================================= --}}
 @if(auth()->user()->status === 'admin_pusat')
 
-    <div class="menu-title {{ ($active ?? '') === 'penyewa' ? 'open' : '' }}">
+    <div class="menu-title">
         Manajemen Penyewa <i class="fa-solid fa-chevron-down"></i>
     </div>
 
@@ -155,7 +155,7 @@
     </a>
 
 
-    <div class="menu-title {{ in_array($active ?? '', ['sewa','riwayat']) ? 'open' : '' }}">
+    <div class="menu-title">
         Manajemen Penyewaan <i class="fa-solid fa-chevron-down"></i>
     </div>
 
@@ -178,7 +178,7 @@
     </a>
 
 
-    <div class="menu-title {{ in_array($active ?? '', ['produk','kategori']) ? 'open' : '' }}">
+    <div class="menu-title">
         Manajemen Produk <i class="fa-solid fa-chevron-down"></i>
     </div>
 
@@ -203,7 +203,7 @@
 {{-- ================================================= --}}
 @if(auth()->user()->status === 'owner')
 
-    <div class="menu-title {{ ($active ?? '') === 'penyewa' ? 'open' : '' }}">
+    <div class="menu-title">
         Manajemen Penyewa <i class="fa-solid fa-chevron-down"></i>
     </div>
 
@@ -214,7 +214,7 @@
     </a>
 
 
-    <div class="menu-title {{ in_array($active ?? '', ['sewa','riwayat']) ? 'open' : '' }}">
+    <div class="menu-title">
         Manajemen Penyewaan <i class="fa-solid fa-chevron-down"></i>
     </div>
 
@@ -237,7 +237,7 @@
     </a>
 
 
-    <div class="menu-title {{ in_array($active ?? '', ['produk','kategori','distribusi']) ? 'open' : '' }}">
+    <div class="menu-title">
         Manajemen Produk <i class="fa-solid fa-chevron-down"></i>
     </div>
 
@@ -260,7 +260,7 @@
 </a>
 
 
-    <div class="menu-title {{ in_array($active ?? '', ['cabang','laporan_cabang']) ? 'open' : '' }}">
+    <div class="menu-title">
         Manajemen Cabang <i class="fa-solid fa-chevron-down"></i>
     </div>
 

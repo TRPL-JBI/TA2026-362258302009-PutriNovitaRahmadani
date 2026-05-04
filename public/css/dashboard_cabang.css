@@ -99,10 +99,14 @@ body {
   transition: .3s;
 }
 
-.menu-title.open i {
-  transform: rotate(180deg);
+.menu-title i.fa-chevron-down {
+  transform: rotate(180deg); /* default ke atas */
+  transition: 0.3s;
 }
 
+.menu-title.open i.fa-chevron-down {
+  transform: rotate(0deg); /* saat klik jadi ke bawah */
+}
 /* ================= COLLAPSE MODE ================= */
 .sidebar.collapsed nav a span { display: none; }
 .sidebar.collapsed .menu-title { display: none; }

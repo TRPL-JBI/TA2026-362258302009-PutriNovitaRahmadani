@@ -128,6 +128,7 @@
     </a>
 </div>
 
+
             </div>
         </div>
     @empty
@@ -157,6 +158,7 @@
     @else
         <span class="nav disabled">»</span>
     @endif
+</div>
 </div>
 </div>
 </div>
