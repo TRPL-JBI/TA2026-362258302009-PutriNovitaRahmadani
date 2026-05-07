@@ -22,6 +22,17 @@
         <div class="register-box">
             <h2>Register</h2>
 
+@if ($errors->any())
+    <div class="alert-error">
+        <i class="fa-solid fa-circle-exclamation"></i>
+
+        <div class="error-text">
+            @foreach ($errors->all() as $error)
+                <div>• {{ $error }}</div>
+            @endforeach
+        </div>
+    </div>
+@endif
             <img src="assets/images/logo.png" class="logo-img">
             
 

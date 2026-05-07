@@ -99,28 +99,32 @@ public function tc_dp_03_menambah_data_penyewa()
 {
     Storage::fake('public');
 
-    $file = UploadedFile::fake()->image('ktp.jpg');
+    // ✅ TANPA GD
+    $file = UploadedFile::fake()->create(
+        'ktp.jpg',
+        100,
+        'image/jpeg'
+    );
 
-    $file = UploadedFile::fake()->create('ktp.jpg', 100, 'image/jpeg');
+    $response = $this->post(route('tambah_penyewa.store'), [
+        'nama' => 'Nur',
+        'username' => 'Nadia08',
+        'password' => '123456',
+        'no_telepon' => '081234567890',
+        'alamat' => 'alamat',
+        'gambar_identitas' => $file,
+    ]);
 
-$response = $this->post(route('tambah_penyewa.store'), [
-    'nama' => 'Nur',
-    'username' => 'Nadia08',
-    'password' => '123456',
-    'no_telepon' => '081234567890',
-    'alamat' => 'alamat',
-    'gambar_identitas' => $file,
-]);
-
-    // ✅ hanya cek redirect
+    // ✅ cek redirect
     $response->assertRedirect(route('data_penyewa'));
 
-    // ✅ cek data masuk (WAJIB)
+    // ✅ cek users
     $this->assertDatabaseHas('users', [
         'username' => 'Nadia08',
         'status' => 'penyewa'
     ]);
 
+    // ✅ cek penyewa
     $this->assertDatabaseHas('penyewa', [
         'status_penyewa' => 'pending'
     ]);

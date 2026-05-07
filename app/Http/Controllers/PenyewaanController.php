@@ -821,13 +821,25 @@ public function createReservasiPusat(Request $request, $id)
         $query->where('kategori_idkategori', $request->kategori);
     }
 
-    $produkList = $query->paginate(10)->withQueryString();
+    $produkList = $query
+    ->where('stok_pusat', '>', 0)
+    ->paginate(10)
+    ->withQueryString();
 
-    // 🔥 FIX: hanya paket pusat
-    $paketList = Paket::with('detail.produk')
+// 🔥 hanya paket pusat & semua produk dalam paket harus stok > 0
+$paketList = Paket::with('detail.produk')
     ->where('is_active', 1)
-        ->whereNull('cabang_id')
-        ->get();
+    ->whereNull('cabang_id')
+
+    // paket harus punya detail
+    ->whereHas('detail')
+
+    // buang paket yang punya produk stok habis
+    ->whereDoesntHave('detail.produk', function ($q) {
+        $q->where('stok_pusat', '<=', 0);
+    })
+
+    ->get();
 
     return view('reservasi_pusat', compact(
         'penyewa',

@@ -17,7 +17,17 @@
 
   <div class="form-card">
     <h3 class="form-title">Tambah Penyewa</h3>
+@if ($errors->any())
+    <div class="alert-error">
+        <i class="fa-solid fa-circle-exclamation"></i>
 
+        <div class="error-text">
+            @foreach ($errors->all() as $error)
+                <div>• {{ $error }}</div>
+            @endforeach
+        </div>
+    </div>
+@endif
      <form 
         class="penyewa-form"
         method="POST"
