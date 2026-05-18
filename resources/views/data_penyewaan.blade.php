@@ -125,7 +125,7 @@
    </div>
         </div>
     @empty
-        <p style="text-align:center;margin-top:40px;">Belum ada riwayat penyewaan</p>
+        <p style="text-align:center;margin-top:40px;">Belum ada penyewaan</p>
     @endforelse
 
   <div class="pagination-simple">

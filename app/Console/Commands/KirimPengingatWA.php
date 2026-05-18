@@ -52,7 +52,7 @@ class KirimPengingatWA extends Command
 
         $now = Carbon::now();
         $waktu_selesai = Carbon::parse($item->tanggal_selesai)
-            ->setHour(18)->setMinute(0)->setSecond(0);
+            ->setHour(16)->setMinute(0)->setSecond(0);
 
         $waktu_pengingat = $waktu_selesai->copy()->subHours(3);
 
@@ -71,11 +71,14 @@ class KirimPengingatWA extends Command
             $nomor = '62' . substr($nomor, 1);
         }
 
-        $pesan = "Halo {$item->penyewa->user->nama},\n\n"
-            ."Pengingat ya, penyewaan Anda akan berakhir hari ini.\n"
-            ."Silakan melakukan pengembalian mulai pukul 16:00\n"
-            ."dan maksimal sebelum jam 18:00.\n\n"
-            ."Terima kasih 🙏";
+        $pesan = "Assalamu'alaikum wr.wb.\n\n"
+    ."Salam Lestari,"
+    ."{$item->penyewa->user->nama}\n\n"
+    ."Selamat siang. Kami ingin menginformasikan kepada seluruh customer OutdoorKriss Rental Alat Camp terkait waktu pengembalian barang:\n\n"
+    ."1. Maksimal pengembalian pukul 16.00 WIB atau lebih awal.\n"
+    ."2. Pastikan seluruh barang lengkap dan dalam kondisi aman.\n"
+    ."3. Segera konfirmasi kepada admin apabila terdapat kendala.\n\n"
+    ."NB: Atas kerja samanya kami ucapkan terima kasih 🙏";
 
         try {
             $response = Http::withHeaders([

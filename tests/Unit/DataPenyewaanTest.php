@@ -86,6 +86,7 @@ class DataPenyewaanTest extends TestCase
         $this->actingAs($user)
             ->post(route('admin.konfirmasi_bayar', $penyewaan->idpenyewaan))
             ->assertSessionHas('success');
+            /** cek status apakah status berubah */
     }
 
     /** @test */
@@ -111,6 +112,7 @@ class DataPenyewaanTest extends TestCase
             ->get(route('admin.penyewaan.detail', $penyewaan->idpenyewaan))
             ->assertStatus(200)
             ->assertViewIs('detail_penyewaan');
+            /** view has */
     }
 
     /** @test */

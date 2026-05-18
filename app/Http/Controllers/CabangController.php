@@ -18,6 +18,10 @@ class CabangController extends Controller
     /* ================= INDEX ================= */
     public function index(Request $request)
     {
+        // HANYA OWNER
+    if(auth()->user()->status != 'owner'){
+        abort(403,'Akses ditolak');
+    }
         // Batasi entries agar tidak bisa manipulasi ekstrem
         $entries = min((int) $request->get('entries', 20), 100);
 

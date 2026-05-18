@@ -90,6 +90,7 @@ class DataPenyewaTest extends TestCase
         $response = $controller->index($request);
 
         $this->assertNotNull($response);
+        // apakah pencarian sesuai atau tidak
     }
 
     // =========================

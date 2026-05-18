@@ -97,7 +97,30 @@
         @empty
             <p class="empty">Tidak ada penyewaan yang belum dibayar</p>
         @endforelse
+<!-- PAGINATION BELUM BAYAR -->
+<div class="pagination-simple">
 
+    @if ($belumBayar->onFirstPage())
+        <span class="nav disabled">«</span>
+    @else
+        <a href="{{ $belumBayar->previousPageUrl() }}" class="nav">«</a>
+    @endif
+
+    @foreach ($belumBayar->getUrlRange(1, $belumBayar->lastPage()) as $page => $url)
+        @if ($page == $belumBayar->currentPage())
+            <span class="page active">{{ $page }}</span>
+        @else
+            <a href="{{ $url }}" class="page">{{ $page }}</a>
+        @endif
+    @endforeach
+
+    @if ($belumBayar->hasMorePages())
+        <a href="{{ $belumBayar->nextPageUrl() }}" class="nav">»</a>
+    @else
+        <span class="nav disabled">»</span>
+    @endif
+
+</div>
     </div>
 
     <!-- ================= TAB PENYEWAAN ================= -->
@@ -167,7 +190,30 @@
     @empty
         <p class="empty">Tidak ada penyewaan aktif</p>
     @endforelse
+<!-- ================= PAGINATION ================= -->
+<div class="pagination-simple">
 
+    @if ($belumBayar->onFirstPage())
+        <span class="nav disabled">«</span>
+    @else
+        <a href="{{ $belumBayar->previousPageUrl() }}" class="nav">«</a>
+    @endif
+
+    @foreach ($belumBayar->getUrlRange(1, $belumBayar->lastPage()) as $page => $url)
+        @if ($page == $belumBayar->currentPage())
+            <span class="page active">{{ $page }}</span>
+        @else
+            <a href="{{ $url }}" class="page">{{ $page }}</a>
+        @endif
+    @endforeach
+
+    @if ($belumBayar->hasMorePages())
+        <a href="{{ $belumBayar->nextPageUrl() }}" class="nav">»</a>
+    @else
+        <span class="nav disabled">»</span>
+    @endif
+
+</div>
 </div>
 @endsection
 

@@ -18,6 +18,11 @@ class BagiHasilController extends Controller
 // =========================
 public function index(Request $request)
 {
+
+    // HANYA OWNER
+    if(auth()->user()->status != 'owner'){
+        abort(403,'Akses ditolak');
+    }
     $view = $request->view ?? 'list';
 
     $cabangs = Cabang::all();
@@ -167,7 +172,11 @@ return back()
 // =========================
 public function show(Request $request,$id)
 {
-
+    // HANYA OWNER
+    if(auth()->user()->status != 'owner'){
+        abort(403,'Akses ditolak');
+    }
+    
 $view='detail';
 
 $cabangs = Cabang::all();

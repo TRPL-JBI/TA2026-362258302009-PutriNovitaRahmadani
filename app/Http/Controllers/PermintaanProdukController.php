@@ -18,6 +18,14 @@ class PermintaanProdukController extends Controller
      */
     public function create()
     {
+         $userId = auth()->user()->idusers;
+
+    // hanya admin cabang
+    $isAdminCabang = AdminCabang::where('users_idusers', $userId)->exists();
+
+    if (!$isAdminCabang) {
+        abort(403, 'USER BUKAN ADMIN CABANG');
+    }
         $produkList = Produk::all();
         return view('permintaan_alat', compact('produkList'));
     }

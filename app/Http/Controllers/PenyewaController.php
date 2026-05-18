@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Penyewa;
+use App\Models\Owner;
+use App\Models\AdminPusat;
+use App\Models\AdminCabang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -13,6 +16,16 @@ class PenyewaController extends Controller
 {
    public function index(Request $request)
 {
+    $userId = auth()->user()->idusers;
+
+    $isOwner = Owner::where('users_idusers', $userId)->exists();
+    $isAdminPusat = AdminPusat::where('users_idusers', $userId)->exists();
+    $isAdminCabang = AdminCabang::where('users_idusers', $userId)->exists();
+
+// hanya owner, admin pusat, dan admin cabang
+if (!$isOwner && !$isAdminPusat && !$isAdminCabang) {
+    abort(403, 'Akses ditolak');
+}
     $perPage = $request->get('per_page', 10); // optional (biar bisa dinamis)
 
     $penyewa = DB::table('users')
@@ -166,6 +179,12 @@ class PenyewaController extends Controller
 //admin pusat
   public function indexPusat(Request $request)
 {
+    if(
+            auth()->user()->status != 'owner' &&
+            auth()->user()->status != 'admin_pusat'
+        ){
+            abort(403,'Akses ditolak');
+        }
     $perPage = $request->get('per_page', 10); // optional (biar bisa dinamis)
 
     $penyewa = DB::table('users')
@@ -185,6 +204,13 @@ class PenyewaController extends Controller
     // FORM
     public function createPusat()
     {
+        // HANYA OWNER DAN ADMIN PUSAT
+    if(
+        auth()->user()->status != 'owner' &&
+        auth()->user()->status != 'admin_pusat'
+    ){
+        abort(403,'Akses ditolak');
+    }
         return view('tambah_penyewa_pusat');
     }
 

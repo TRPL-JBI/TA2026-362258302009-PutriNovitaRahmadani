@@ -13,6 +13,13 @@ class ProdukController extends Controller
     // ================== INDEX ==================
     public function index(Request $request)
     {
+        // HANYA OWNER DAN ADMIN PUSAT
+        if(
+            auth()->user()->status != 'owner' &&
+            auth()->user()->status != 'admin_pusat'
+        ){
+            abort(403,'Akses ditolak');
+        }
         $kategori = Kategori::all();
 
         $produk = Produk::with(['kategori', 'hargaAktif'])
@@ -34,6 +41,13 @@ class ProdukController extends Controller
     // ================== CREATE ==================
     public function create()
     {
+        // HANYA OWNER DAN ADMIN PUSAT
+        if(
+            auth()->user()->status != 'owner' &&
+            auth()->user()->status != 'admin_pusat'
+        ){
+            abort(403,'Akses ditolak');
+        }
         $kategori = Kategori::all();
         return view('tambah_produk', compact('kategori'));
     }

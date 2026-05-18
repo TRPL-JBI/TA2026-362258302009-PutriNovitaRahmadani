@@ -64,6 +64,30 @@
     @empty
         <p class="empty">Tidak ada penyewaan selesai</p>
     @endforelse
+    <!-- PAGINATION BELUM BAYAR -->
+<div class="pagination-simple">
+
+    @if ($penyewaanSelesai->onFirstPage())
+        <span class="nav disabled">«</span>
+    @else
+        <a href="{{ $penyewaanSelesai->previousPageUrl() }}" class="nav">«</a>
+    @endif
+
+    @foreach ($penyewaanSelesai->getUrlRange(1, $penyewaanSelesai->lastPage()) as $page => $url)
+        @if ($page == $penyewaanSelesai->currentPage())
+            <span class="page active">{{ $page }}</span>
+        @else
+            <a href="{{ $url }}" class="page">{{ $page }}</a>
+        @endif
+    @endforeach
+
+    @if ($penyewaanSelesai->hasMorePages())
+        <a href="{{ $penyewaanSelesai->nextPageUrl() }}" class="nav">»</a>
+    @else
+        <span class="nav disabled">»</span>
+    @endif
+
+</div>
 </div>
 
 </div>

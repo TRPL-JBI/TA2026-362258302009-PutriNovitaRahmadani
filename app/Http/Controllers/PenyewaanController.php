@@ -281,7 +281,7 @@ public function detailPenyewa($id)
 
     return view('detail_sewa', compact('penyewaan'));
 }
-public function riwayat()
+public function riwayat(Request $request)
 {
     $user = Auth::user();
     $penyewa = $user->penyewa ?? null;
@@ -289,6 +289,7 @@ public function riwayat()
     if (!$penyewa) {
         abort(403, 'Akun ini bukan penyewa');
     }
+    $perPage = $request->get('per_page', 10);
 
     // ⏳ BELUM BAYAR
     $belumBayar = Penyewaan::where('penyewa_idpenyewa', $penyewa->idpenyewa)
@@ -296,32 +297,32 @@ public function riwayat()
     ->whereIn('status_penyewaan', ['menunggu_pembayaran'])
     ->with(['cabang', 'cabang.adminCabang.user', 'penyewa.user'])
     ->orderBy('created_at', 'desc')
-    ->get();
+    ->paginate($perPage);
 
-$penyewaanAktif = Penyewaan::where('penyewa_idpenyewa', $penyewa->idpenyewa)
+    $penyewaanAktif = Penyewaan::where('penyewa_idpenyewa', $penyewa->idpenyewa)
     ->whereNotNull('cabang_idcabang')
     ->whereIn('status_penyewaan', ['sedang_disewa'])
     ->with(['cabang', 'cabang.adminCabang.user', 'penyewa.user'])
     ->orderBy('created_at', 'desc')
-    ->get();
+    ->paginate($perPage);
 
     return view('item_penyewaan', compact('belumBayar', 'penyewaanAktif'));
 }
-public function selesai() {
+public function selesai(Request $request) {
     $user = Auth::user();
     $penyewa = $user->penyewa ?? null;
 
     if (!$penyewa) {
         abort(403, 'Akun ini bukan penyewa');
     }
-
+$perPage = $request->get('per_page', 10);
     $penyewaanSelesai = Penyewaan::with(['penyewa.user'])
         ->whereNotNull('cabang_idcabang')
         ->where('penyewa_idpenyewa', $penyewa->idpenyewa) // ✅ FIX DI SINI
         ->where('status_penyewaan', 'selesai')
         
         ->orderBy('created_at', 'desc')
-        ->get();
+        ->paginate($perPage);
 
     return view('riwayat_penyewaan', compact('penyewaanSelesai'));
 }
@@ -1335,7 +1336,7 @@ public function detailPenyewaPusat($id)
     return view('detail_sewa_pusat', compact('penyewaan'));
 }
 
-public function riwayatPusat()
+public function riwayatPusat(Request $request)
 {
     $user = Auth::user();
     $penyewa = $user->penyewa ?? null;
@@ -1343,38 +1344,38 @@ public function riwayatPusat()
     if (!$penyewa) {
         abort(403, 'Akun ini bukan penyewa');
     }
-
+$perPage = $request->get('per_page', 10);
     // ⏳ BELUM BAYAR
     $belumBayar = Penyewaan::where('penyewa_idpenyewa', $penyewa->idpenyewa)
     ->whereNotNull('admin_pusat_idadmin_pusat')
     ->whereIn('status_penyewaan', ['menunggu_pembayaran'])
     ->with(['cabang', 'cabang.adminCabang.user', 'penyewa.user'])
     ->orderBy('created_at', 'desc')
-    ->get();
+    ->paginate($perPage);
 
 $penyewaanAktif = Penyewaan::where('penyewa_idpenyewa', $penyewa->idpenyewa)
     ->whereNotNull('admin_pusat_idadmin_pusat')
     ->whereIn('status_penyewaan', ['sedang_disewa'])
     ->with(['cabang', 'cabang.adminCabang.user', 'penyewa.user'])
     ->orderBy('created_at', 'desc')
-    ->get();
+    ->paginate($perPage);
 
     return view('item_penyewaan_pusat', compact('belumBayar', 'penyewaanAktif'));
 }
-public function selesaiPusat() {
+public function selesaiPusat(Request $request) {
     $user = Auth::user();
     $penyewa = $user->penyewa ?? null;
 
     if (!$penyewa) {
         abort(403, 'Akun ini bukan penyewa');
     }
-
+$perPage = $request->get('per_page', 10);
     $penyewaanSelesai = Penyewaan::with(['penyewa.user'])
         ->whereNotNull('admin_pusat_idadmin_pusat')
         ->where('penyewa_idpenyewa', $penyewa->idpenyewa) // ✅ FIX DI SINI
         ->where('status_penyewaan', 'selesai')
         ->orderBy('created_at', 'desc')
-        ->get();
+        ->paginate($perPage);
 
     return view('riwayat_penyewaan_pusat', compact('penyewaanSelesai'));
 }

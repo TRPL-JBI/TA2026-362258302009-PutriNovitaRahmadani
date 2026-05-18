@@ -7,11 +7,23 @@ use Illuminate\Http\Request;
 
 class KategoriController extends Controller
 {
-    public function index()
-    {
-        $kategori = Kategori::withSum('produk', 'stok_pusat')->get();
-        return view('data_kategori', compact('kategori'));
+    public function index(Request $request)
+{
+   
+    // HANYA OWNER DAN ADMIN PUSAT
+    if(
+        auth()->user()->status != 'owner' &&
+        auth()->user()->status != 'admin_pusat'
+    ){
+        abort(403,'Akses ditolak');
     }
+    $perPage = $request->get('per_page', 10);
+
+    $kategori = Kategori::withSum('produk', 'stok_pusat')
+                    ->paginate($perPage);
+
+    return view('data_kategori', compact('kategori'));
+}
 
     public function store(Request $request)
     {

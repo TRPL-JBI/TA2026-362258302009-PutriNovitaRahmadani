@@ -15,6 +15,10 @@ class DistribusiProdukController extends Controller
     // Tampilkan semua permintaan
   public function index(Request $request)
 {
+    // HANYA OWNER
+    if(auth()->user()->status != 'owner'){
+        abort(403,'Akses ditolak');
+    }
     $view = $request->get('view', 'permintaan'); 
     // default = permintaan
 

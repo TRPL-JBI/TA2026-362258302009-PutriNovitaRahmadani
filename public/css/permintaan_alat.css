@@ -153,8 +153,8 @@ textarea:focus {
 /* ACTION */
 .form-actions {
     display: flex;
-    justify-content: center;
-    gap: 20px;
+    justify-content: flex-end;
+    gap: 10px;
     margin-top: 28px;
 }
 

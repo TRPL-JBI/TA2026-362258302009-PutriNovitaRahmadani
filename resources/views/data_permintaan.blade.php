@@ -64,7 +64,7 @@
 
         <div class="table-body">
 
-            @foreach($permintaan as $item)
+            @forelse($permintaan as $item)
 
             <div class="table-row">
 
@@ -102,28 +102,31 @@
 
                 <div class="col aksi">
 
-                    <!-- DETAIL -->
-                    <button type="button"
-                            class="btn btn-detail"
-                            onclick="openModal({{ $item->idpermintaan }})">
-                        <i class="fa-solid fa-eye"></i>
-                    </button>
+            <!-- DETAIL -->
+            <button type="button"
+                    class="btn btn-detail"
+                    onclick="openModal({{ $item->idpermintaan }})">
+                <i class="fa-solid fa-eye"></i>
+            </button>
 
-                    <!-- TERIMA -->
-                    @if(strtolower($item->status) === 'disetujui')
-                    <form action="{{ route('distribusi_produk.terima', $item->idpermintaan) }}" method="POST">
-                        @csrf
-                        <button type="submit" class="btn btn-confirm">
-                            <i class="fa-solid fa-circle-check"></i> Terima
-                        </button>
-                    </form>
-                    @endif
+            <!-- TERIMA -->
+            @if(strtolower($item->status) === 'disetujui')
+            <form action="{{ route('distribusi_produk.terima', $item->idpermintaan) }}" method="POST">
+                @csrf
+                <button type="submit" class="btn btn-confirm">
+                    <i class="fa-solid fa-circle-check"></i> Terima
+                </button>
+            </form>
+            @endif
 
-                </div>
+        </div>
 
-            </div>
+    </div>
 
-            @endforeach
+    @empty
+        <p class="kosong">Belum ada data permintaan</p>
+
+    @endforelse
 
         </div>
     </div>

@@ -172,9 +172,9 @@
     </a>
 
     <a href="{{ route('laporan_pusat') }}"  
-    class="{{ ($active ?? '') === 'laporan_pendataan' ? 'active' : '' }}">
+    class="{{ ($active ?? '') === 'laporan_pendapatan' ? 'active' : '' }}">
         <i class="fa-solid fa-print"></i>
-        <span>Laporan Pendataan</span>
+        <span>Laporan Pendapatan</span>
     </a>
 
 
@@ -231,9 +231,9 @@
     </a>
 
     <a href="{{ route('laporan_pusat') }}" 
-    class="{{ ($active ?? '') === 'laporan_pendataan' ? 'active' : '' }}">
+    class="{{ ($active ?? '') === 'laporan_pendapatan' ? 'active' : '' }}">
         <i class="fa-solid fa-print"></i>
-        <span>Laporan Pendataan</span>
+        <span>Laporan Pendapatan</span>
     </a>
 
 

@@ -141,9 +141,10 @@ tbody tr {
 /* BUTTONS */
 .action-buttons {
     margin-top: 30px;
-    display: flex;
-    justify-content: center;
-    gap: 30px;
+     display: flex;
+    justify-content: flex-end;
+    padding-right: 25px;
+    gap: 10px;
 }
 
 .btn-konfirmasi {

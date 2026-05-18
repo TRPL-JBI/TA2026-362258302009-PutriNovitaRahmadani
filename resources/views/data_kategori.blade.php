@@ -17,12 +17,15 @@
     {{-- Header --}}
     <div class="header-kategori">
         <div class="left">
-            <select>
-                <option>20</option>
-                <option>50</option>
-                <option>100</option>
-            </select>
-            <span>Data Per Halaman</span>
+            <form method="GET">
+                <select class="per-page" name="per_page" onchange="this.form.submit()">
+                    <option value="10" {{ request('per_page')==10?'selected':'' }}>10</option>
+                    <option value="25" {{ request('per_page')==25?'selected':'' }}>25</option>
+                    <option value="50" {{ request('per_page')==50?'selected':'' }}>50</option>
+                    <option value="100" {{ request('per_page')==100?'selected':'' }}>100</option>
+                </select>
+            </form>
+            <span class="per-page-text">Data per halaman</span>
         </div>
 
         <div class="right">

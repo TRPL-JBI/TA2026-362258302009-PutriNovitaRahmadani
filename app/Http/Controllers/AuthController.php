@@ -15,153 +15,143 @@ class AuthController extends Controller
 {
     /* ================= LOGIN ================= */
    public function login(Request $request)
-{
-    $request->validate([
-        'username' => 'required',
-        'password' => 'required'
-    ]);
-
-    if (!Auth::attempt($request->only('username', 'password'))) {
-        return back()->withErrors([
-            'username' => 'Username atau password salah'
+    {
+        $request->validate([
+            'username' => 'required',
+            'password' => 'required'
         ]);
+
+        if (!Auth::attempt($request->only('username', 'password'))) {
+            return back()->withErrors([
+                'username' => 'Username atau password salah'
+            ]);
+        }
+
+        $request->session()->regenerate();
+        $user = Auth::user();
+
+        /* ===== CEK KHUSUS ADMIN CABANG ===== */
+        if ($user->status === 'admin_cabang') {
+
+            $adminCabang = AdminCabang::with('cabang')
+                ->where('users_idusers', $user->idusers)
+                ->first();
+
+            if (!$adminCabang || !$adminCabang->cabang) {
+                Auth::logout();
+                return back()->withErrors('Data cabang tidak ditemukan');
+            }
+
+            $status = $adminCabang->cabang->status_cabang;
+
+            if ($status === 'pending') {
+                Auth::logout();
+                return back()->withErrors('Akun cabang menunggu konfirmasi owner');
+            }
+
+            if ($status === 'ditolak') {
+                Auth::logout();
+                return back()->withErrors('Pengajuan cabang Anda ditolak');
+            }
+
+            if ($status === 'nonaktif') {
+                Auth::logout();
+                return back()->withErrors('Akun cabang dinonaktifkan');
+            }
+        }
+
+        /* ===== CEK KHUSUS PENYEWA ===== */
+        if ($user->status === 'penyewa') {
+
+            $penyewa = Penyewa::where('users_idusers', $user->idusers)->first();
+
+            if (!$penyewa) {
+                Auth::logout();
+                return back()->withErrors('Data penyewa tidak ditemukan');
+            }
+
+            if ($penyewa->status_penyewa === 'pending') {
+                Auth::logout();
+                return back()->withErrors('Akun Anda menunggu konfirmasi owner');
+            }
+
+            if ($penyewa->status_penyewa === 'ditolak') {
+                Auth::logout();
+                return back()->withErrors('Pengajuan Anda ditolak');
+            }
+
+            if ($penyewa->status_penyewa === 'nonaktif') {
+                Auth::logout();
+                return back()->withErrors('Akun Anda dinonaktifkan');
+            }
+        }
+
+        return redirect()->route('dashboard');
     }
-
-    $request->session()->regenerate();
-    $user = Auth::user();
-
-    /* ===== CEK KHUSUS ADMIN CABANG ===== */
-    if ($user->status === 'admin_cabang') {
-
-        $adminCabang = AdminCabang::with('cabang')
-            ->where('users_idusers', $user->idusers)
-            ->first();
-
-        if (!$adminCabang || !$adminCabang->cabang) {
-            Auth::logout();
-            return back()->withErrors('Data cabang tidak ditemukan');
-        }
-
-        $status = $adminCabang->cabang->status_cabang;
-
-        if ($status === 'pending') {
-            Auth::logout();
-            return back()->withErrors('Akun cabang menunggu konfirmasi owner');
-        }
-
-        if ($status === 'ditolak') {
-            Auth::logout();
-            return back()->withErrors('Pengajuan cabang Anda ditolak');
-        }
-
-        if ($status === 'nonaktif') {
-            Auth::logout();
-            return back()->withErrors('Akun cabang dinonaktifkan');
-        }
-    }
-
-    /* ===== CEK KHUSUS PENYEWA ===== */
-    if ($user->status === 'penyewa') {
-
-        $penyewa = Penyewa::where('users_idusers', $user->idusers)->first();
-
-        if (!$penyewa) {
-            Auth::logout();
-            return back()->withErrors('Data penyewa tidak ditemukan');
-        }
-
-        if ($penyewa->status_penyewa === 'pending') {
-            Auth::logout();
-            return back()->withErrors('Akun Anda menunggu konfirmasi owner');
-        }
-
-        if ($penyewa->status_penyewa === 'ditolak') {
-            Auth::logout();
-            return back()->withErrors('Pengajuan Anda ditolak');
-        }
-
-        if ($penyewa->status_penyewa === 'nonaktif') {
-            Auth::logout();
-            return back()->withErrors('Akun Anda dinonaktifkan');
-        }
-    }
-
-    return redirect()->route('dashboard');
-}
 
     /* ================= REGISTER PENYEWA ================= */
    public function registerPenyewa(Request $request)
-{
-    $request->validate([
-    'nama' => 'required',
-    'username' => app()->environment('testing')
-        ? 'required'
-        : 'required|unique:users,username',
+    {
+        $request->validate([
+        'nama' => 'required',
+        'username' => app()->environment('testing')
+            ? 'required'
+            : 'required|unique:users,username',
+        'password' => 'required|string|min:6|max:255',
+            'no_telepon' => ['required','digits_between:10,15','unique:users,no_telepon','regex:/^08[0-9]{8,11}$/' ],
+            'alamat' => 'required|string|max:255',
+            'gambar_identitas' => 'bail|required|image|mimes:jpg,jpeg,png|max:2048',
+            ],[
+        'username.unique' => 'Username sudah digunakan',
+        'password.min' => 'Password minimal 6 karakter',
+        'no_telepon.unique' => 'Nomor telepon sudah terdaftar',
+        'no_telepon.digits_between' =>
+            'Nomor telepon harus 10-15 digit',
+        'no_telepon.regex' =>
+            'Nomor telepon harus diawali 08',
+        'gambar_identitas.image' =>
+            'Foto identitas harus JPG/PNG maksimal 2MB',
+        'gambar_identitas.mimes' =>
+            'Foto identitas harus JPG/PNG maksimal 2MB',
+        'gambar_identitas.max' =>
+            'Foto identitas harus JPG/PNG maksimal 2MB',
+    ]);
+        DB::beginTransaction();
 
-   'password' => 'required|string|min:6|max:255',
-    'no_telepon' => ['required','digits_between:10,15','unique:users,no_telepon','regex:/^08[0-9]{8,11}$/' ],
-    'alamat' => 'required|string|max:255',
-    'gambar_identitas' => 'bail|required|image|mimes:jpg,jpeg,png|max:2048',
-    ],[
-    
-    'username.unique' => 'Username sudah digunakan',
+        try {
 
-    'password.min' => 'Password minimal 6 karakter',
+            $user = User::create([
+                'nama'        => $request->nama,
+                'username'    => $request->username,
+                'password'    => Hash::make($request->password),
+                'no_telepon'  => $request->no_telepon,
+                'alamat'      => $request->alamat,
+                'status'      => 'penyewa'
+            ]);
 
-    'no_telepon.unique' => 'Nomor telepon sudah terdaftar',
+            // ✅ SIMPAN KE STORAGE
+            $path = $request->file('gambar_identitas')
+                            ->store('identitas', 'public');
 
-    'no_telepon.digits_between' =>
-        'Nomor telepon harus 10-15 digit',
+            Penyewa::create([
+                'users_idusers'    => $user->idusers,
+                'gambar_identitas' => $path, // simpan path, bukan filename saja
+                'status_penyewa'   => 'pending'
+            ]);
 
-    'no_telepon.regex' =>
-        'Nomor telepon harus diawali 08',
+            DB::commit();
 
-    'gambar_identitas.image' =>
-        'Foto identitas harus JPG/PNG maksimal 2MB',
+            return redirect('/login')
+                ->with('success', 'Registrasi berhasil, silakan login');
 
-    'gambar_identitas.mimes' =>
-        'Foto identitas harus JPG/PNG maksimal 2MB',
+        } catch (\Exception $e) {
 
-    'gambar_identitas.max' =>
-        'Foto identitas harus JPG/PNG maksimal 2MB',
+            DB::rollback();
 
-]);
-    DB::beginTransaction();
-
-    try {
-
-        $user = User::create([
-            'nama'        => $request->nama,
-            'username'    => $request->username,
-            'password'    => Hash::make($request->password),
-            'no_telepon'  => $request->no_telepon,
-            'alamat'      => $request->alamat,
-            'status'      => 'penyewa'
-        ]);
-
-        // ✅ SIMPAN KE STORAGE
-        $path = $request->file('gambar_identitas')
-                        ->store('identitas', 'public');
-
-        Penyewa::create([
-            'users_idusers'    => $user->idusers,
-            'gambar_identitas' => $path, // simpan path, bukan filename saja
-            'status_penyewa'   => 'pending'
-        ]);
-
-        DB::commit();
-
-        return redirect('/login')
-            ->with('success', 'Registrasi berhasil, silakan login');
-
-    } catch (\Exception $e) {
-
-        DB::rollback();
-
-        return back()->withInput()
-            ->with('error', 'Terjadi kesalahan saat registrasi');
+            return back()->withInput()
+                ->with('error', 'Terjadi kesalahan saat registrasi');
+        }
     }
-}
     /* ================= REGISTER ADMIN CABANG ================= */
     public function registerAdminCabang(Request $request)
     {

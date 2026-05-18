@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use App\Models\AdminCabang;
 use Illuminate\Validation\Rules\Password;
 
 class AkunController extends Controller
@@ -17,6 +18,13 @@ class AkunController extends Controller
     if (!$user) {
         return redirect()->route('login');
     }
+        // hanya admin cabang
+    $isAdminCabang = AdminCabang::where('users_idusers', $user->idusers)->exists();
+
+    if (!$isAdminCabang) {
+        abort(403, 'USER BUKAN ADMIN CABANG');
+    }
+
 
     $cabang = DB::table('admin_cabang')
         ->join('cabang', 'admin_cabang.cabang_idcabang', '=', 'cabang.idcabang')
