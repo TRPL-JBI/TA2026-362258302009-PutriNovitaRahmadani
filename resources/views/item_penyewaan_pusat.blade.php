@@ -56,7 +56,9 @@
                     <div class="action">
                         @if ($item->metode_bayar === 'transfer')
                             @if ($item->bukti_bayar)
-                                <button class="btn waiting">Menunggu Konfirmasi Admin</button>
+                                <button class="btn waiting">
+                                    <i class="fa-solid fa-clock-rotate-left" style="color: brown; margin-right: 5px;"></i>
+                                    Menunggu Konfirmasi Admin</button>
                             @else
                                 <a href="{{ route('penyewaan_pusat.upload_pembayaran', $item->idpenyewaan) }}"
                                    class="btn upload">
@@ -65,7 +67,9 @@
                                 </a>
                             @endif
                         @else
-                            <button class="btn waiting">Menunggu Pembayaran di toko</button>
+                            <button class="btn waiting">
+                            <i class="fa-solid fa-clock-rotate-left" style="color: brown; margin-right: 5px;"></i>    
+                            Menunggu Pembayaran di toko</button>
                         @endif
 
                         <a href="{{ route('detail_sewa_pusat', $item->idpenyewaan) }}"
