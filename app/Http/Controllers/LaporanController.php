@@ -50,9 +50,6 @@ class LaporanController extends Controller
 
         // ================= ADMIN CABANG =================
         if ($user->status === 'admin_cabang') {
-        if ($request->has('cabang')) {
-                abort(403, 'Akses ditolak');
-            }
 
             $adminCabang = $user->adminCabang;
 
