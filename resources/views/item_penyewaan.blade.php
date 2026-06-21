@@ -72,7 +72,7 @@
                         @if ($item->metode_bayar === 'transfer')
                             @if ($item->bukti_bayar)
                                 <span class="btn waiting no-click">
-                                    <i class="fa-solid fa-clock-rotate-left" style="color: white; margin-right: 5px;"></i>
+                                    <i class="fa-solid fa-clock-rotate-left" style="color: brown; margin-right: 5px;"></i>
                                     Menunggu Konfirmasi Admin
                                 </span>
                             @else
@@ -222,10 +222,33 @@
 </div>
 </div>
 @endsection
+@if(session('success'))
+<div class="toast-success" id="toastSuccess">
+    <i class="fa-solid fa-circle-check"></i>
+    <span>{{ session('success') }}</span>
+</div>
+@endif
 
-
+@if(session('error'))
+<div class="toast-error" id="toastError">
+    <i class="fa-solid fa-circle-xmark"></i>
+    <span>{{ session('error') }}</span>
+</div>
+@endif
 @push('scripts')
 <script>
+    setTimeout(() => {
+    const success = document.getElementById('toastSuccess');
+    const error = document.getElementById('toastError');
+
+    [success, error].forEach(el => {
+        if(el){
+            el.style.opacity = '0';
+            el.style.transition = '0.5s';
+            setTimeout(() => el.remove(), 500);
+        }
+    });
+}, 3000);
 /* ================= TAB FUNCTION ================= */
 document.querySelectorAll('.tab').forEach(tab => {
     tab.addEventListener('click', function () {

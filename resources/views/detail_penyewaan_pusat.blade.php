@@ -31,13 +31,18 @@
 
     {{-- ALERT --}}
     @if(session('success'))
-        <div class="alert-success">{{ session('success') }}</div>
-    @endif
+<div class="toast-success" id="toastSuccess">
+    <i class="fa-solid fa-circle-check"></i>
+    <span>{{ session('success') }}</span>
+</div>
+@endif
 
-    @if(session('error'))
-        <div class="alert-error">{{ session('error') }}</div>
-    @endif
-
+@if(session('error'))
+<div class="toast-error" id="toastError">
+    <i class="fa-solid fa-circle-xmark"></i>
+    <span>{{ session('error') }}</span>
+</div>
+@endif
 
     {{-- INFORMASI PENYEWA --}}
     <div class="info-card">
@@ -164,23 +169,27 @@
 
         {{-- KONFIRMASI BAYAR --}}
         @if($penyewaan->status_penyewaan == 'menunggu_pembayaran')
-        <form action="{{ route('pusat.konfirmasi_bayar', $penyewaan->idpenyewaan) }}" method="POST">
-            @csrf
-            <button class="btn-konfirmasi">
-                Konfirmasi Pembayaran
-            </button>
-        </form>
+        <form action="{{ route('pusat.konfirmasi_bayar', $penyewaan->idpenyewaan) }}" 
+        method="POST"
+      class="konfirmasi-form">
+    @csrf
+    <button type="submit" class="btn-konfirmasi">
+        Konfirmasi Pembayaran
+    </button>
+</form>
         @endif
 
 
         {{-- SELESAIKAN --}}
         @if($penyewaan->status_penyewaan == 'sedang_disewa')
-        <form action="{{ route('pusat.penyewaan.selesai', $penyewaan->idpenyewaan) }}" method="POST">
-            @csrf
-            <button class="btn-konfirmasi">
-                Selesaikan Penyewaan
-            </button>
-        </form>
+        <form action="{{ route('pusat.penyewaan.selesai', $penyewaan->idpenyewaan) }}" 
+        method="POST"
+      class="selesai-form">
+    @csrf
+    <button type="submit" class="btn-konfirmasi">
+        Selesaikan Penyewaan
+    </button>
+</form>
         @endif
 
 
@@ -194,3 +203,36 @@
 
 </div>
 @endsection
+@push('scripts')
+<script>
+setTimeout(() => {
+    const success = document.getElementById('toastSuccess');
+    const error = document.getElementById('toastError');
+
+    [success, error].forEach(el => {
+        if(el){
+            el.style.opacity = '0';
+            el.style.transition = '0.5s';
+            setTimeout(() => el.remove(), 500);
+        }
+    });
+}, 3000);
+// Konfirmasi pembayaran
+document.querySelectorAll('.konfirmasi-form').forEach(form => {
+    form.addEventListener('submit', function(e){
+        if (!confirm('Apakah yakin ingin mengonfirmasi pembayaran ini?')) {
+            e.preventDefault();
+        }
+    });
+});
+
+// Selesaikan penyewaan
+document.querySelectorAll('.selesai-form').forEach(form => {
+    form.addEventListener('submit', function(e){
+        if (!confirm('Apakah yakin ingin menyelesaikan penyewaan ini?')) {
+            e.preventDefault();
+        }
+    });
+});
+</script>
+@endpush

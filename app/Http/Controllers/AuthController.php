@@ -72,7 +72,7 @@ class AuthController extends Controller
 
             if ($penyewa->status_penyewa === 'pending') {
                 Auth::logout();
-                return back()->withErrors('Akun Anda menunggu konfirmasi owner');
+                return back()->withErrors('Akun Anda menunggu konfirmasi Admin');
             }
 
             if ($penyewa->status_penyewa === 'ditolak') {

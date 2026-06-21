@@ -113,7 +113,9 @@
             JPG / PNG max 2MB
         </div>
     </div>
-
+<div id="uploadSuccess" class="upload-success" style="display:none;">
+    ✓ Gambar identitas berhasil dipilih
+</div>
     <button type="submit" class="btn-register">Register</button>
 </form>
 
@@ -128,13 +130,16 @@
         const fileName = document.getElementById('file-name');
 
         fileInput.addEventListener('change', function () {
-            if (this.files.length > 0) {
-                fileName.innerHTML = `
-                    <i class="fa-solid fa-file-image"></i>
-                    ${this.files[0].name}
-                `;
-            }
-        });
+    if (this.files.length > 0) {
+
+        fileName.innerHTML = `
+            <i class="fa-solid fa-file-image"></i>
+            ${this.files[0].name}
+        `;
+
+        document.getElementById('uploadSuccess').style.display = 'block';
+    }
+});
         function togglePassword() {
     const input = document.getElementById("password");
     const icon = document.querySelector(".toggle-password");

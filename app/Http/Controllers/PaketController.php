@@ -29,10 +29,11 @@ class PaketController extends Controller
         $cabangId = $user->adminCabang->cabang_idcabang;
 
         $stokCabang = StokCabang::with('produk')
-            ->where('cabang_idcabang', $cabangId)
-            ->where('jumlah', '>', 0)
-            ->get();
-
+    ->where('cabang_idcabang', $cabangId)
+    ->where('jumlah', '>', 0)
+    ->whereNotNull('produk_idproduk')
+    ->whereHas('produk')
+    ->get();
         return view('paket_cabang', compact('stokCabang'));
     }
 

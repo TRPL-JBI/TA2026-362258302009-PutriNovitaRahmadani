@@ -132,8 +132,33 @@
 </div>
 </div>
 @endsection
+@if(session('success'))
+<div class="toast-success" id="toastSuccess">
+    <i class="fa-solid fa-circle-check"></i>
+    <span>{{ session('success') }}</span>
+</div>
+@endif
+
+@if(session('error'))
+<div class="toast-error" id="toastError">
+    <i class="fa-solid fa-circle-xmark"></i>
+    <span>{{ session('error') }}</span>
+</div>
+@endif
 @push('scripts')
 <script>
+    setTimeout(() => {
+    const success = document.getElementById('toastSuccess');
+    const error = document.getElementById('toastError');
+
+    [success, error].forEach(el => {
+        if(el){
+            el.style.opacity = '0';
+            el.style.transition = '0.5s';
+            setTimeout(() => el.remove(), 500);
+        }
+    });
+}, 3000);
 let timeout = null;
 
 document.getElementById('searchInput').addEventListener('keyup', function () {

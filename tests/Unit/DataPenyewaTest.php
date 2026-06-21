@@ -239,4 +239,13 @@ public function tc_dp_06_pencarian_penyewa_tidak_ditemukan()
 
     $this->assertEquals(0, $jumlah);
 }
+#[Test]
+public function tc_dp_07_detail_penyewa_tidak_ditemukan()
+{
+    $data = DB::table('penyewa')
+        ->where('users_idusers', 9999)
+        ->first();
+
+    $this->assertNull($data);
+}
 }

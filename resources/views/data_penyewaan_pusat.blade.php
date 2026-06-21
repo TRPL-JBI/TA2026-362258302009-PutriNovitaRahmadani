@@ -33,6 +33,7 @@
         <!-- KANAN (INI YANG KAMU MAU) -->
         <div class="right">
             <input type="text"
+            id="searchInput"
                    class="search"
                    name="search"
                    placeholder="Pencarian..."
@@ -92,20 +93,24 @@
     <div class="confirm-wrap">
 
         {{-- Cancel --}}
-    <form action="{{ route('pusat.penyewaan.cancel', $p->idpenyewaan) }}" method="POST">
-        @csrf
-        <button type="submit" class="icon-btn cancel-btn">
-            ✖
-        </button>
-    </form>
+    <form action="{{ route('pusat.penyewaan.cancel', $p->idpenyewaan) }}"
+        method="POST"
+      class="cancel-form">
+    @csrf
+    <button type="submit" class="icon-btn cancel-btn">
+        ✖
+    </button>
+</form>
 
     {{-- Konfirmasi --}}
-    <form action="{{ route('pusat.konfirmasi_bayar', $p->idpenyewaan) }}" method="POST">
-        @csrf
-        <button type="submit" class="icon-btn ok-btn">
-            ✔
-        </button>
-    </form>
+    <form action="{{ route('pusat.konfirmasi_bayar', $p->idpenyewaan) }}"
+        method="POST"
+      class="confirm-form">
+    @csrf
+    <button type="submit" class="icon-btn ok-btn">
+        ✔
+    </button>
+</form>
 
     </div>
 
@@ -163,8 +168,33 @@
 </div>
 </div>
 @endsection
+@if(session('success'))
+<div class="toast-success" id="toastSuccess">
+    <i class="fa-solid fa-circle-check"></i>
+    <span>{{ session('success') }}</span>
+</div>
+@endif
+
+@if(session('error'))
+<div class="toast-error" id="toastError">
+    <i class="fa-solid fa-circle-xmark"></i>
+    <span>{{ session('error') }}</span>
+</div>
+@endif
 @push('scripts')
 <script>
+    setTimeout(() => {
+    const success = document.getElementById('toastSuccess');
+    const error = document.getElementById('toastError');
+
+    [success, error].forEach(el => {
+        if(el){
+            el.style.opacity = '0';
+            el.style.transition = '0.5s';
+            setTimeout(() => el.remove(), 500);
+        }
+    });
+}, 3000);
 let timeout = null;
 
 document.getElementById('searchInput').addEventListener('keyup', function () {
@@ -173,6 +203,23 @@ document.getElementById('searchInput').addEventListener('keyup', function () {
     timeout = setTimeout(() => {
         document.getElementById('filterForm').submit();
     }, 500); // delay biar ga spam
+});
+// Konfirmasi pembayaran
+document.querySelectorAll('.confirm-form').forEach(form => {
+    form.addEventListener('submit', function(e){
+        if (!confirm('Apakah yakin ingin mengonfirmasi pembayaran ini?')) {
+            e.preventDefault();
+        }
+    });
+});
+
+// Cancel penyewaan
+document.querySelectorAll('.cancel-form').forEach(form => {
+    form.addEventListener('submit', function(e){
+        if (!confirm('Apakah yakin ingin membatalkan penyewaan ini?')) {
+            e.preventDefault();
+        }
+    });
 });
 </script>
 @endpush

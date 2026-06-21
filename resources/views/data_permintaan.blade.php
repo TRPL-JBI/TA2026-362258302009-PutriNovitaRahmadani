@@ -111,12 +111,14 @@
 
             <!-- TERIMA -->
             @if(strtolower($item->status) === 'disetujui')
-            <form action="{{ route('distribusi_produk.terima', $item->idpermintaan) }}" method="POST">
-                @csrf
-                <button type="submit" class="btn btn-confirm">
-                    <i class="fa-solid fa-circle-check"></i> Terima
-                </button>
-            </form>
+            <form action="{{ route('distribusi_produk.terima', $item->idpermintaan) }}"
+      method="POST"
+      class="terima-form">
+    @csrf
+    <button type="submit" class="btn btn-confirm">
+        <i class="fa-solid fa-circle-check"></i> Terima
+    </button>
+</form>
             @endif
 
         </div>
@@ -235,6 +237,15 @@ window.onclick = function(e){
         }
     });
 }
+/* KONFIRMASI TERIMA BARANG */
+document.querySelectorAll('.terima-form').forEach(form => {
+    form.addEventListener('submit', function(e){
 
+        if(!confirm('Apakah barang sudah diterima dan ingin mengubah status menjadi selesai?')){
+            e.preventDefault();
+        }
+
+    });
+});
 </script>
 @endpush

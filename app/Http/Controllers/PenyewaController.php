@@ -54,6 +54,7 @@ class PenyewaController extends Controller
     // SIMPAN
     public function store(Request $request)
 {
+    
     $validated = $request->validate([
 
     'nama' => 'required|string|max:100',

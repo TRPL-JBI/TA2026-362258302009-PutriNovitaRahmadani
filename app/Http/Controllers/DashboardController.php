@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Cabang;
 use App\Models\User;
+use App\Models\Penyewa;
 use App\Models\Penyewaan;
 use App\Models\Produk;
 use App\Models\Kategori;
@@ -50,10 +51,7 @@ public function index(Request $request)
     $tahun = $request->tahun ?? date('Y');
 
     // ================= CARD =================
-    $totalPenyewa = Penyewaan::where('cabang_idcabang', $cabangId)
-        ->whereYear('tanggal_sewa', $tahun)
-        ->distinct('penyewa_idpenyewa')
-        ->count('penyewa_idpenyewa');
+    $totalPenyewa = Penyewa::where('status_penyewa', 'aktif')->count();
 
     $totalPenyewaan = Penyewaan::where('cabang_idcabang', $cabangId)
         ->whereYear('tanggal_sewa', $tahun)

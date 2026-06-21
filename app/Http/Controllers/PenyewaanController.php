@@ -255,16 +255,20 @@ foreach ($items as $i => $id) {
 $tipe = session('tipe_toko');
 
 if ($tipe === 'pusat') {
-    return redirect()->route('item_penyewaan_pusat', $penyewaan->idpenyewaan);
+    return redirect()
+        ->route('item_penyewaan_pusat', $penyewaan->idpenyewaan)
+        ->with('success', 'Penyewaan berhasil dibuat');
 }
-        return redirect()
-            ->route('item_penyewaan', $penyewaan->idpenyewaan);
 
-    } catch (\Exception $e) {
+return redirect()
+    ->route('item_penyewaan', $penyewaan->idpenyewaan)
+    ->with('success', 'Penyewaan berhasil dibuat');
 
-        DB::rollBack();
-        return back()->with('error', $e->getMessage());
-    }
+} catch (\Exception $e) {
+
+    DB::rollBack();
+    return back()->with('error', $e->getMessage());
+}
 }
 
 public function detailPenyewa($id)
@@ -1486,6 +1490,12 @@ public function uploadBuktiBayarPusat(Request $request, $idpenyewaan)
 
 public function struk($id)
 {
+    $user = Auth::user();
+    $penyewa = $user->penyewa ?? null;
+
+    if (!$user || !$penyewa) {
+        abort(403, 'Akun ini bukan penyewa');
+    }
     $data = Penyewaan::with(['cabang', 'penyewa.user', 'itemPenyewaan'])->findOrFail($id);
 
     return view('struk', compact('data'));

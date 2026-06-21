@@ -42,13 +42,13 @@
                 <select name="produk_cabang_id[]" required>
     <option value="">-- Pilih Produk --</option>
 
-    @forelse($stokCabang as $item)
+    @foreach($stokCabang as $item)
+    @if($item->produk && $item->produk->nama_produk)
         <option value="{{ $item->idstok }}">
-            {{ optional($item->produk)->nama_produk }} (Stok: {{ $item->jumlah }})
+            {{ $item->produk->nama_produk }} (Stok: {{ $item->jumlah }})
         </option>
-    @empty
-        <option value="">Tidak ada stok cabang</option>
-    @endforelse
+    @endif
+@endforeach
 
 </select>
                 <input type="number" name="qty[]" placeholder="Qty" min="1" required>
@@ -66,8 +66,10 @@
     <label>Gambar Paket</label>
     <input type="file" name="gambar_paket">
 </div>
+<div id="uploadSuccess" class="upload-success" style="display:none;">
+    ✓ Gambar berhasil dipilih
+</div>
         <br><br>
-
         <div class="form-footer">
 
     <button type="submit" class="btn-simpan">
@@ -87,6 +89,16 @@
 
 @push('scripts')
 <script>
+    const inputGambar = document.querySelector('input[name="gambar_paket"]');
+const uploadSuccess = document.getElementById('uploadSuccess');
+
+inputGambar.addEventListener('change', function () {
+    if (this.files && this.files[0]) {
+        uploadSuccess.style.display = 'block';
+    } else {
+        uploadSuccess.style.display = 'none';
+    }
+});
 function tambahProduk() {
     let html = `
     <div class="produk-item">

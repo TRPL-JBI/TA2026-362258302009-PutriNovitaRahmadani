@@ -45,14 +45,17 @@
         </div>
 
         <label class="upload-box">
-            <input type="file" name="bukti_bayar" id="uploadInput" hidden>
+    <input type="file" name="bukti_bayar" id="uploadInput" hidden accept="image/*">
 
-            <div class="upload-content">
-                <i class="icon-upload"><i class="fa-solid fa-cloud-arrow-up"></i></i>
-                <p id="fileName">Upload bukti bayar</p>
-            </div>
-        </label>
+    <div class="upload-content">
+        <i class="fa-solid fa-cloud-arrow-up"></i>
+        <p id="fileName">Upload bukti bayar</p>
+    </div>
+</label>
 
+<div id="uploadSuccess" class="upload-success" style="display:none;">
+    ✓ Gambar berhasil dipilih
+</div>
         <div class="action-button">
             <button type="submit" class="btn-konfirmasi">Konfirmasi</button>
             <a href="{{ route('item_penyewaan') }}" class="btn-batal">Batal</a>
@@ -65,13 +68,19 @@
 <script>
 const input = document.getElementById('uploadInput');
 const fileText = document.getElementById('fileName');
+const successBox = document.getElementById('uploadSuccess');
 
 input.addEventListener('change', function () {
-    const fileName = this.files[0]?.name;
+    const file = this.files[0];
 
-    if (fileName) {
-        fileText.textContent = fileName;
+    if (file) {
+        fileText.textContent = file.name;
         fileText.classList.add('active');
+
+        successBox.style.display = 'block';
+    } else {
+        fileText.textContent = 'Upload bukti bayar';
+        successBox.style.display = 'none';
     }
 });
 document.querySelectorAll('.timer').forEach(timer => {

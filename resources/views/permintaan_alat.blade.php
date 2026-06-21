@@ -44,8 +44,10 @@
             </button>
         </div>
 
-        <form action="{{ route('permintaan_produk.store') }}" method="POST">
-            @csrf
+        <form action="{{ route('permintaan_produk.store') }}"
+      method="POST"
+      id="form-permintaan">
+    @csrf
 
             <!-- BOX ORANGE -->
             <div id="daftar-permintaan">
@@ -149,6 +151,14 @@ container.addEventListener('change', function(e){
             stokValue.innerText = '-';
         }
     }
+});
+// Konfirmasi buat permintaan
+document.getElementById('form-permintaan').addEventListener('submit', function(e){
+
+    if(!confirm('Apakah yakin ingin mengajukan permintaan produk ini?')){
+        e.preventDefault();
+    }
+
 });
 </script>
 @endpush

@@ -35,7 +35,33 @@
   outline: none;
   width: 100%;
 }
+.toast-success{
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #55b56c;
+    color: #fff;
+    padding: 14px 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.15);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 9999;
+    animation: slideDown .3s ease;
+}
 
+@keyframes slideDown{
+    from{
+        opacity: 0;
+        transform: translate(-50%, -20px);
+    }
+    to{
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
 /* ADD BUTTON */
 .btn-add {
   background: #d98200;

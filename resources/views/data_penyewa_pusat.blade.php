@@ -75,19 +75,23 @@
     {{-- KONFIRMASI --}}
     <td class="confirm-col">
         @if ($p->status_penyewa === 'pending')
-            <form action="{{ route('penyewa.tolak', $p->idusers) }}" method="POST">
-                @csrf
-                <button type="submit" class="icon-btn">
-                    <i class="fa-solid fa-circle-xmark text-danger"></i>
-                </button>
-            </form>
+            <form action="{{ route('penyewa.tolak', $p->idusers) }}"
+      method="POST"
+      class="form-tolak">
+    @csrf
+    <button type="submit" class="icon-btn">
+        <i class="fa-solid fa-circle-xmark text-danger"></i>
+    </button>
+</form>
 
-            <form action="{{ route('penyewa.terima', $p->idusers) }}" method="POST">
-                @csrf
-                <button type="submit" class="icon-btn">
-                    <i class="fa-solid fa-circle-check text-success"></i>
-                </button>
-            </form>
+<form action="{{ route('penyewa.terima', $p->idusers) }}"
+      method="POST"
+      class="form-terima">
+    @csrf
+    <button type="submit" class="icon-btn">
+        <i class="fa-solid fa-circle-check text-success"></i>
+    </button>
+</form>
         @elseif ($p->status_penyewa === 'aktif')
             <i class="fa-solid fa-circle-check text-success"></i>
         @elseif ($p->status_penyewa === 'ditolak')
@@ -209,8 +213,22 @@
 </div>
 
 @endsection
+@if(session('success'))
+<div class="toast-success" id="toastSuccess">
+    <i class="fa-solid fa-circle-check"></i>
+    <span>{{ session('success') }}</span>
+</div>
+@endif
 @push('scripts')
 <script>
+    setTimeout(() => {
+    const toast = document.getElementById('toastSuccess');
+    if (toast) {
+        toast.style.opacity = '0';
+        toast.style.transition = '0.5s';
+        setTimeout(() => toast.remove(), 500);
+    }
+}, 3000);
 document.querySelectorAll('.btn-detail').forEach(btn => {
     btn.onclick = () => {
         modalNama.value = btn.dataset.nama;
@@ -256,6 +274,23 @@ document.getElementById('searchInput').addEventListener('keyup', function () {
             row.innerText.toLowerCase().includes(value)
                 ? ''
                 : 'none';
+    });
+});
+// Konfirmasi terima penyewa
+document.querySelectorAll('.form-terima').forEach(form => {
+    form.addEventListener('submit', function(e){
+        if (!confirm('Apakah yakin ingin mengonfirmasi penyewa ini?')) {
+            e.preventDefault();
+        }
+    });
+});
+
+// Konfirmasi tolak penyewa
+document.querySelectorAll('.form-tolak').forEach(form => {
+    form.addEventListener('submit', function(e){
+        if (!confirm('Apakah yakin ingin menolak penyewa ini?')) {
+            e.preventDefault();
+        }
     });
 });
 </script>

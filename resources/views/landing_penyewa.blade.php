@@ -65,25 +65,38 @@
     <!-- GRID -->
     <div class="cabang-grid">
 
-      @foreach($cabang as $c)
-      <div class="card">
+    {{-- Kantor Pusat --}}
+    <div class="card">
 
-          <div class="icon">
-              <i class="fas fa-map-marker-alt"></i>
-          </div>
+        <div class="icon">
+            <i class="fas fa-map-marker-alt"></i>
+        </div>
 
-          <div class="text">
+        <div class="text">
+            <h4>OutdoorKriss Tegalsari (Pusat)</h4>
+            <p>
+                Kec. Tegalsari, Kabupaten Banyuwangi, Jawa Timur
+            </p>
+        </div>
 
-    <h4>{{ $c->nama_cabang }}</h4>
+    </div>
 
-    <p>
-        {{ $c->lokasi }}
-    </p>
+    @foreach($cabang as $c)
+    <div class="card">
+
+        <div class="icon">
+            <i class="fas fa-map-marker-alt"></i>
+        </div>
+
+        <div class="text">
+            <h4>{{ $c->nama_cabang }}</h4>
+            <p>{{ $c->lokasi }}</p>
+        </div>
+
+    </div>
+    @endforeach
 
 </div>
-
-      </div>
-      @endforeach
 
     </div>
 

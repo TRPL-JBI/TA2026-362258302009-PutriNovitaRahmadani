@@ -103,7 +103,9 @@
                 required
                 onchange="showFileName(this)">
         </div>
-
+<div id="uploadSuccess" class="upload-success" style="display:none;">
+    ✓ Gambar identitas berhasil dipilih
+</div>
         <div class="form-actions">
             <button type="submit" class="btn-submit">Tambah Penyewa</button>
             <a href="{{ route('data_penyewa_pusat') }}" class="btn-cancel">Batal</a>
@@ -127,6 +129,9 @@ function showFileName(input) {
 
         document.querySelector('.upload-box')
             .classList.add('file-selected');
+
+        document.getElementById('uploadSuccess')
+            .style.display = 'block';
     }
 }
 function togglePassword() {
