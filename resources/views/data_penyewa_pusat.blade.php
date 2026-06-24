@@ -47,7 +47,7 @@
 <tbody>
 @forelse ($penyewa as $i => $p)
 <tr>
-    <td>{{ $i + 1 }}</td>
+    <td>{{ $penyewa->firstItem() + $i }}</td>
     <td>{{ $p->nama }}</td>
     <td>{{ $p->alamat }}</td>
     <td>{{ $p->no_telepon }}</td>

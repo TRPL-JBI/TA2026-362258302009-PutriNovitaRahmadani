@@ -26,9 +26,6 @@
     @if(session('success'))
         <div class="alert alert-green">{{ session('success') }}</div>
     @endif
-    @if(session('error'))
-        <div class="alert alert-red">{{ session('error') }}</div>
-    @endif
 
     <div class="form-box">
 
