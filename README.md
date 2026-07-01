@@ -228,7 +228,8 @@ Konfigurasi database pada file `.env`
 DB_DATABASE=outdoor
 DB_USERNAME=root
 DB_PASSWORD=
-
+```
+```env
 SESSION_DRIVER=file
 ```
 Integrasi Whats'App
