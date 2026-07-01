@@ -21,17 +21,17 @@ Selain mendukung manajemen franchise, sistem juga menyediakan layanan penyewaan 
 
 | Penyewa | Admin Cabang | Admin Pusat | Owner |
 |------------|------------------|----------------|-----------|
-| • Dashboard | • Dashboard | • Dashboard | • Dashboard |
-| • Melihat katalog produk | • Melihat kontrak franchise | • Mengelola data penyewa | • Mengelola data produk |
-| • Mencari & memfilter produk | • Mengelola data penyewa | • Mengelola penyewaan skala besar | • Mengelola kategori produk |
-| • Melihat detail produk & stok | • Mengelola penyewaan & pengembalian | • Melihat riwayat penyewaan | • Mengelola distribusi produk |
-| • Melakukan penyewaan online | • Melihat riwayat penyewaan | • Mengelola data produk | • Mengelola data cabang |
-| • Memilih metode pembayaran | • Melihat laporan pendapatan cabang | • Mengelola kategori produk | • Melihat laporan cabang |
-| • Melihat status & riwayat penyewaan | • Mengelola data produk cabang | • Mengelola profil admin | • Mengelola sistem bagi hasil franchise |
-| • Mengelola profil akun | • Mengirim permintaan produk ke pusat | | • Mengelola profil owner |
-| | • Mengelola pembayaran fee (bagi hasil) | | |
-| | • Melihat riwayat pembayaran fee | | |
-| | • Mengelola profil admin | | |
+|  Dashboard |  Dashboard |  Dashboard |  Dashboard |
+|  Melihat katalog produk |  Melihat kontrak franchise |  Mengelola data penyewa |  Mengelola data produk |
+|  Mencari & memfilter produk |  Mengelola data penyewa |  Mengelola penyewaan skala besar |  Mengelola kategori produk |
+|  Melihat detail produk & stok |  Mengelola penyewaan & pengembalian |  Melihat riwayat penyewaan |  Mengelola distribusi produk |
+|  Melakukan penyewaan online |  Melihat riwayat penyewaan |  Mengelola data produk |  Mengelola data cabang |
+|  Memilih metode pembayaran |  Melihat laporan pendapatan cabang |  Mengelola kategori produk |  Melihat laporan cabang |
+|  Melihat status & riwayat penyewaan |  Mengelola data produk cabang |  Mengelola profil admin |  Mengelola sistem bagi hasil franchise |
+|  Mengelola profil akun |  Mengirim permintaan produk ke pusat | |  Mengelola profil owner |
+| |  Mengelola pembayaran fee (bagi hasil) | | |
+| |  Melihat riwayat pembayaran fee | | |
+| |  Mengelola profil admin | | |
 
 ## Alur Sistem
 
