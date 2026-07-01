@@ -37,7 +37,7 @@ Selain mendukung manajemen franchise, sistem juga menyediakan layanan penyewaan 
 
 ```text
 ══════════════════════════════════════════════════════
-                     👑 OWNER
+                      OWNER
 ══════════════════════════════════════════════════════
             │
             ├── Mengelola Data Cabang
@@ -47,7 +47,7 @@ Selain mendukung manajemen franchise, sistem juga menyediakan layanan penyewaan 
                           │
                           ▼
 ══════════════════════════════════════════════════════
-                  🏢 ADMIN PUSAT
+                   ADMIN PUSAT
 ══════════════════════════════════════════════════════
             │
             ├── Mengelola Data Produk
@@ -57,7 +57,7 @@ Selain mendukung manajemen franchise, sistem juga menyediakan layanan penyewaan 
                           │
                           ▼
 ══════════════════════════════════════════════════════
-                 👨‍💼 ADMIN CABANG
+                  ADMIN CABANG
 ══════════════════════════════════════════════════════
             │
             ├── Mengelola Produk Cabang
@@ -68,7 +68,7 @@ Selain mendukung manajemen franchise, sistem juga menyediakan layanan penyewaan 
                           │
                           ▼
 ══════════════════════════════════════════════════════
-                    👤 PENYEWA
+                     PENYEWA
 ══════════════════════════════════════════════════════
             │
             ├── Registrasi / Login
@@ -80,7 +80,7 @@ Selain mendukung manajemen franchise, sistem juga menyediakan layanan penyewaan 
                           │
                           ▼
 ══════════════════════════════════════════════════════
-                 👨‍💼 ADMIN CABANG
+                  ADMIN CABANG
 ══════════════════════════════════════════════════════
             │
             ├── Verifikasi Penyewaan
@@ -92,7 +92,7 @@ Selain mendukung manajemen franchise, sistem juga menyediakan layanan penyewaan 
                           │
                           ▼
 ══════════════════════════════════════════════════════
-                     👑 OWNER
+                      OWNER
 ══════════════════════════════════════════════════════
             │
             ├── Memantau Laporan Cabang
@@ -167,13 +167,13 @@ Dashboard
 ### Clone Repository
 
 ```bash
-git clone https://github.com/TRPL-JBI/TA2026-362258302090-NurWeldaSari.git
+git clone https://github.com/TRPL-JBI/TA2026-362258302009-PutriNovitaRahmadani.git
 ```
 
 Masuk ke folder project
 
 ```bash
-cd TA2026-362258302090-NurWeldaSari
+cd TA2026-362258302090-PutriNovitaRahmadani
 ```
 
 Install dependency
@@ -236,7 +236,7 @@ http://127.0.0.1:8000
 ```
 
 ---
-## 👩‍💻 Pengembang
+## Pengembang
 
 **Putri Novita Rahmadani**
 
