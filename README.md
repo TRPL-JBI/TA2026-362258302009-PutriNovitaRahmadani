@@ -133,12 +133,12 @@ Selain mendukung manajemen franchise, sistem juga menyediakan layanan penyewaan 
 
 ## Teknologi yang Digunakan
 
-| Teknologi                  | Kegunaan                      |
-| -------------------------- | ----------------------------- |
-| **Laravel**                | Framework backend             |
-| **PHP**                    | Bahasa pemrograman            |
-| **MySQL**                  | Database                      |
-| **HTML, CSS & JavaScript** | Antarmuka pengguna            |
+| Teknologi                  | Kegunaan                                   |
+| -------------------------- | ------------------------------------------ |
+| **Laravel**                | Framework backend                          |
+| **PHP**                    | Bahasa pemrograman                         |
+| **MySQL**                  | Database                                   |
+| **HTML, CSS & JavaScript** | Antarmuka pengguna                         |
 | **API Fonnte**             | Integrasi notifikasi WhatsApp dan kode OTP |
 
 ## Modul Sistem
